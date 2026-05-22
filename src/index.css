@@ -158,7 +158,7 @@ body {
 .card-infra { grid-column: span 4; }
 .card-stack { grid-column: span 8; }
 .card-projects { grid-column: span 12; }
-.card-contact { grid-column: span 12; display: flex; flex-direction: row; justify-content: space-between; align-items: center; padding: 2rem; background: rgba(199, 120, 221, 0.02);}
+.card-contact { grid-column: span 12; display: flex; flex-direction: row; justify-content: flex-start; align-items: center; gap: 2rem; padding: 2rem; background: rgba(199, 120, 221, 0.02);}
 
 /* Micro-aesthetics (Symbiosis with cracka.cfd) */
 .mono-label {
