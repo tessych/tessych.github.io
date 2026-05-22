@@ -211,6 +211,7 @@ function App() {
                   <span className="tag">Go</span>
                   <span className="tag">Python</span>
                   <span className="tag">C++</span>
+                  <span className="tag">Rust</span>
                   <span className="tag">React</span>
                 </div>
               </div>
@@ -221,6 +222,7 @@ function App() {
                   <span className="tag">PostgreSQL</span>
                   <span className="tag">Redis</span>
                   <span className="tag">MongoDB</span>
+                  <span className="tag">ChromaDB</span>
                   <span className="tag">Docker Compose</span>
                   <span className="tag">Nginx</span>
                 </div>
@@ -231,6 +233,8 @@ function App() {
                 <div className="stack-tags">
                   <span className="tag">REST API</span>
                   <span className="tag">gRPC</span>
+                  <span className="tag">FastAPI</span>
+                  <span className="tag">WebSockets</span>
                   <span className="tag">PyTorch</span>
                   <span className="tag">TensorFlow</span>
                 </div>
