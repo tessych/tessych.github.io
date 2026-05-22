@@ -276,37 +276,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="project-item">
-                <div className="project-header">
-                  <h4>Multi-Agent Dev Assistant</h4>
-                  <div className="project-links">
-                    <a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="icon-link"><GithubIcon size={18} /></a>
-                  </div>
-                </div>
-                <p style={{ marginTop: '0.25rem' }}>Интерактивный симулятор команды ИИ-агентов (Planner, Coder, Tester, Reviewer) с песочницей исполнения кода.</p>
-                <div className="stack-tags" style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  <span className="tag">React</span>
-                  <span className="tag">Go</span>
-                  <span className="tag">Python</span>
-                  <span className="tag">WebSockets</span>
-                </div>
-              </div>
 
-              <div className="project-item">
-                <div className="project-header">
-                  <h4>Smart Doc Query Engine (RAG)</h4>
-                  <div className="project-links">
-                    <a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="icon-link"><GithubIcon size={18} /></a>
-                  </div>
-                </div>
-                <p style={{ marginTop: '0.25rem' }}>Интеллектуальная вопросно-ответная система по документам со сплит-экраном и точными интерактивными сносками.</p>
-                <div className="stack-tags" style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  <span className="tag">React</span>
-                  <span className="tag">Python</span>
-                  <span className="tag">FastAPI</span>
-                  <span className="tag">ChromaDB</span>
-                </div>
-              </div>
             </div>
           </SpotlightCard>
 
