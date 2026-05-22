@@ -114,17 +114,15 @@ body {
   transform: translateY(-4px);
 }
 
-.spotlight-layer {
+.global-spotlight {
   pointer-events: none;
-  position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
 }
-
-.glass-bento-card:hover .spotlight-layer { opacity: 1; }
 
 .card-content-wrapper { position: relative; z-index: 1; display: flex; flex-direction: column; height: 100%; }
 

@@ -89,9 +89,32 @@ const itemVariants: Variants = {
 
 function App() {
   useSpinningTitle();
+  const mouseX = useMotionValue(-1000);
+  const mouseY = useMotionValue(-1000);
+
+  useEffect(() => {
+    function handleMouseMove(e: globalThis.MouseEvent) {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+    }
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [mouseX, mouseY]);
 
   return (
     <>
+      <motion.div
+        className="global-spotlight"
+        style={{
+          background: useMotionTemplate`
+            radial-gradient(
+              600px circle at ${mouseX}px ${mouseY}px,
+              rgba(255, 255, 255, 0.06),
+              transparent 80%
+            )
+          `,
+        }}
+      />
       <div className="bg-orbs">
         <div className="orb orb-1"></div>
         <div className="orb orb-2"></div>
