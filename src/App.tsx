@@ -1,308 +1,178 @@
-import { Terminal, Server, MapPin, Brain, LayoutGrid, FolderOpen } from 'lucide-react';
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
+import { ArrowUpRight, BrainCircuit, Layers3, MapPin, Server, Terminal } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { useEffect } from 'react';
-import type { MouseEvent, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
+import type { ReactNode } from 'react';
 
-function useSpinningTitle() {
-  useEffect(() => {
-    const steps = "/-\\|";
-    const FPS = 2;
-    const frameInterval = 1000 / FPS;
-    let step = 0;
-    let lastTimestep = 0;
-    let animationFrameId: number;
+const themes = [
+  { id: 'aoi', label: 'Индиго' },
+  { id: 'kumo', label: 'Облако' },
+  { id: 'yozora', label: 'Сумерки' },
+] as const;
 
-    function animation(timestamp: number) {
-      if (lastTimestep + frameInterval < timestamp) {
-        document.title = `${steps[step++]} tessych`;
-        step %= steps.length;
-        lastTimestep = timestamp;
-      }
-      animationFrameId = window.requestAnimationFrame(animation);
-    }
+const locales = [
+  { id: 'ru', short: 'RU', name: 'Русский' },
+  { id: 'en', short: 'EN', name: 'English' },
+  { id: 'ja', short: '日', name: '日本語' },
+] as const;
 
-    animationFrameId = window.requestAnimationFrame(animation);
+type ThemeId = (typeof themes)[number]['id'];
+type Locale = (typeof locales)[number]['id'];
 
-    return () => {
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, []);
-}
-
-function GithubIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-      <path d="M9 18c-4.51 2-5-2-7-2" />
-    </svg>
-  );
-}
-
-function SpotlightCard({ children, className = "", variants }: { children: ReactNode, className?: string, variants?: Variants }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-    const { left, top } = currentTarget.getBoundingClientRect();
-    mouseX.set(clientX - left);
-    mouseY.set(clientY - top);
-  }
-
-  return (
-    <motion.div
-      variants={variants}
-      className={`glass-bento-card ${className}`}
-      onMouseMove={handleMouseMove}
-    >
-      <motion.div
-        className="spotlight-layer"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              400px circle at ${mouseX}px ${mouseY}px,
-              rgba(255, 255, 255, 0.08),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-      <div className="card-content-wrapper">
-        {children}
-      </div>
-    </motion.div>
-  );
-}
-
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
-  }
+type Copy = {
+  documentLang: string;
+  role: string;
+  skip: string;
+  home: string;
+  themeLabel: string;
+  languageLabel: string;
+  themeNames: Record<ThemeId, string>;
+  location: string;
+  introIndex: string;
+  introTitle: [string, string];
+  introCopy: string;
+  backendIndex: string;
+  backendTitle: string;
+  backend: [ReactNode, ReactNode];
+  mlIndex: string;
+  mlTitle: string;
+  ml: [ReactNode, ReactNode];
+  infrastructureIndex: string;
+  infrastructureTitle: string;
+  infrastructure: [ReactNode, ReactNode];
+  approachIndex: string;
+  approachTitle: string;
+  approach: Array<{ title: string; body: string }>;
+  stackIndex: string;
+  stackTitle: string;
+  stackGroups: [string, string, string];
+  projectsIndex: string;
+  projectsTitle: string;
+  projects: [string, string];
+  linksIndex: string;
+  linksTitle: string;
+  quote: string;
+  showQuote: string;
+  hideQuote: string;
+  projectLink: (name: string) => string;
 };
 
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+const copy: Record<Locale, Copy> = {
+  ru: {
+    documentLang: 'ru', role: 'разработчик', skip: 'К содержанию', home: 'tessych, в начало страницы', themeLabel: 'Варианты оформления', languageLabel: 'Язык',
+    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' }, location: 'Новосибирск', introIndex: '01 / ОБО МНЕ', introTitle: ['От идеи', 'до сервиса.'],
+    introCopy: 'Проектный backend и fullstack-разработчик. Превращаю идеи в аккуратные сервисы: от архитектуры и данных до развёртывания.',
+    backendIndex: '02 / РАЗРАБОТКА', backendTitle: 'Backend-разработка',
+    backend: ['Проектирую надёжные масштабируемые архитектуры. Основной фокус — производительные REST API, микросервисы на Go и Python, а также gRPC.', 'Работаю с PostgreSQL, Redis и MongoDB; критичный код покрываю unit-тестами.'],
+    mlIndex: '03 / ИССЛЕДОВАНИЯ', mlTitle: 'ML и алгоритмы',
+    ml: ['Решаю математически сложные задачи и создаю модели на Python с PyTorch и TensorFlow.', 'Олимпиадный бэкграунд помогает находить точные решения на C++ в строгих ограничениях по времени.'],
+    infrastructureIndex: '04 / ИНФРАСТРУКТУРА', infrastructureTitle: 'Инфраструктура',
+    infrastructure: ['Настраиваю полный цикл развёртывания и поддержки: веб-серверы, балансировку через Nginx и контейнеры через Docker Compose.', 'Для локальной разработки настраиваю безопасное туннелирование через Ngrok.'],
+    approachIndex: '05 / ПОДХОД', approachTitle: 'Как подхожу к задачам',
+    approach: [{ title: 'Начинаю со структуры', body: 'Продумываю архитектуру, модель данных и границы сервисов до того, как задача превращается в код.' }, { title: 'Берегу критичные места', body: 'Покрываю unit-тестами логику, от которой зависит поведение системы.' }, { title: 'Довожу до среды', body: 'Контейнеризирую сервисы и настраиваю инфраструктуру, чтобы решение можно было уверенно запустить.' }],
+    stackIndex: '06 / ИНСТРУМЕНТЫ', stackTitle: 'Стек', stackGroups: ['Языки и фреймворки', 'Базы данных и инфраструктура', 'Протоколы и ML'],
+    projectsIndex: '07 / КЕЙСЫ', projectsTitle: 'Избранные кейсы', projects: ['Система удалённого администрирования с акцентом на производительность и безопасность.', 'Семантический поиск по репозиторию с векторными эмбеддингами и Monaco Editor.'],
+    linksIndex: '08 / ССЫЛКИ', linksTitle: 'Больше обо мне', quote: 'Противник не сможет узнать твой следующий ход если ты и сам его не знаешь', showQuote: 'Показать цитату', hideQuote: 'Скрыть цитату', projectLink: (name) => `Открыть GitHub tessych для проекта ${name} в новой вкладке`,
+  },
+  en: {
+    documentLang: 'en', role: 'developer', skip: 'Skip to content', home: 'tessych, back to top', themeLabel: 'Visual themes', languageLabel: 'Language',
+    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' }, location: 'Novosibirsk', introIndex: '01 / ABOUT', introTitle: ['Building', 'systems.'],
+    introCopy: 'Project-focused backend and full-stack developer. I turn ideas into considered services, from architecture and data through deployment.',
+    backendIndex: '02 / BUILD', backendTitle: 'Backend engineering',
+    backend: ['I design reliable, scalable architectures with a focus on high-performance REST APIs, Go and Python microservices, and gRPC.', 'I work with PostgreSQL, Redis, and MongoDB, and cover critical logic with unit tests.'],
+    mlIndex: '03 / RESEARCH', mlTitle: 'ML and algorithms',
+    ml: ['I solve mathematically complex problems and build models with Python, PyTorch, and TensorFlow.', 'My competitive programming background helps me find precise C++ solutions under strict time limits.'],
+    infrastructureIndex: '04 / OPERATIONS', infrastructureTitle: 'Infrastructure',
+    infrastructure: ['I set up the full delivery and support cycle: web servers, Nginx load balancing, and Docker Compose containers.', 'For local development, I configure secure service tunnelling through Ngrok.'],
+    approachIndex: '05 / PRINCIPLES', approachTitle: 'How I approach work',
+    approach: [{ title: 'Start with structure', body: 'I think through architecture, data models, and service boundaries before a task turns into code.' }, { title: 'Protect critical paths', body: 'I cover the logic that drives system behaviour with unit tests.' }, { title: 'Carry it into production', body: 'I containerise services and configure infrastructure so a solution can be run with confidence.' }],
+    stackIndex: '06 / TOOLKIT', stackTitle: 'Stack', stackGroups: ['Languages and frameworks', 'Data and infrastructure', 'Protocols and ML'],
+    projectsIndex: '07 / SHOWCASE', projectsTitle: 'Selected work', projects: ['A remote administration system with a focus on performance and security.', 'Semantic repository search with vector embeddings and Monaco Editor.'],
+    linksIndex: '08 / LINKS', linksTitle: 'More about me', quote: 'Your opponent cannot know your next move if you do not know it yourself.', showQuote: 'Show quote', hideQuote: 'Hide quote', projectLink: (name) => `Open tessych GitHub for ${name} in a new tab`,
+  },
+  ja: {
+    documentLang: 'ja', role: 'システム開発者', skip: '本文へ移動', home: 'tessych、ページの先頭へ', themeLabel: 'テーマ', languageLabel: '言語',
+    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空' }, location: 'ノヴォシビルスク', introIndex: '01 / 自己紹介', introTitle: ['仕組みを', 'つくる。'],
+    introCopy: 'プロジェクト志向のバックエンド・フルスタック開発者です。設計とデータからデプロイまで、アイデアを整ったサービスにします。',
+    backendIndex: '02 / 開発', backendTitle: 'バックエンド開発',
+    backend: ['信頼性と拡張性を備えたアーキテクチャを設計します。高速な REST API、Go・Python のマイクロサービス、gRPC が主な領域です。', 'PostgreSQL、Redis、MongoDB を扱い、重要なロジックはユニットテストで守ります。'],
+    mlIndex: '03 / 研究', mlTitle: 'ML・アルゴリズム',
+    ml: ['数学的に複雑な課題を解き、Python、PyTorch、TensorFlow でモデルを開発します。', '競技プログラミングの経験を生かし、厳しい時間制約でも C++ で精度の高い解を探します。'],
+    infrastructureIndex: '04 / 運用', infrastructureTitle: 'インフラ',
+    infrastructure: ['Web サーバー、Nginx による負荷分散、Docker Compose のコンテナまで、デリバリーと運用の一連を整えます。', 'ローカル開発では Ngrok を使った安全なトンネリングを設定します。'],
+    approachIndex: '05 / 方針', approachTitle: '仕事の進め方',
+    approach: [{ title: '構造から考える', body: 'コードを書く前に、アーキテクチャ、データモデル、サービス境界を考えます。' }, { title: '重要な部分を守る', body: 'システムの振る舞いを左右するロジックはユニットテストでカバーします。' }, { title: '動く環境まで届ける', body: 'サービスをコンテナ化し、安心して起動できるようインフラを整えます。' }],
+    stackIndex: '06 / 道具', stackTitle: '技術スタック', stackGroups: ['言語・フレームワーク', 'データベース・インフラ', 'プロトコル・ML'],
+    projectsIndex: '07 / 事例', projectsTitle: '主なプロジェクト', projects: ['性能と安全性を重視したリモート管理システム。', 'ベクトル埋め込みと Monaco Editor を用いたリポジトリの意味検索。'],
+    linksIndex: '08 / 連絡', linksTitle: 'もっと知る', quote: '男の子であることは性別の問題。男であることは時間の問題。クズであることは、もはや問題ですらない。', showQuote: '引用を表示', hideQuote: '引用を閉じる', projectLink: (name) => `${name} の tessych GitHub を新しいタブで開く`,
+  },
 };
+
+const containerVariants: Variants = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.12 } } };
+const itemVariants: Variants = { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.2, 0, 0, 1] } } };
 
 function App() {
-  useSpinningTitle();
-  const mouseX = useMotionValue(-1000);
-  const mouseY = useMotionValue(-1000);
+  const [theme, setTheme] = useState<ThemeId>('aoi');
+  const [locale, setLocale] = useState<Locale>('ru');
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const text = copy[locale];
 
   useEffect(() => {
-    function handleMouseMove(e: globalThis.MouseEvent) {
-      mouseX.set(e.clientX);
-      mouseY.set(e.clientY);
-    }
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+    document.documentElement.lang = text.documentLang;
+    document.title = `tessych - ${text.role}`;
+  }, [text.documentLang, text.role]);
 
   return (
-    <>
-      <motion.div
-        className="global-spotlight"
-        style={{
-          background: useMotionTemplate`
-            radial-gradient(
-              600px circle at ${mouseX}px ${mouseY}px,
-              rgba(255, 255, 255, 0.06),
-              transparent 80%
-            )
-          `,
-        }}
-      />
-      <div className="bg-orbs">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        <div className="orb orb-3"></div>
-      </div>
-
+    <div className="app-shell" data-theme={theme}>
+      <a className="skip-link" href="#content">{text.skip}</a>
       <div className="layout-wrapper">
-        <motion.header 
-          className="header"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="header-top">
-            <h1 className="title">tessych</h1>
-            <div className="location">
-              <MapPin size={16} />
-              <span>Новосибирск</span>
-            </div>
+        <header className="site-header">
+          <div className="wordmark-group"><a className="wordmark" href="#top" aria-label={text.home}>tessych<span>.</span></a><span className="wordmark-jp" lang="ja">テッシー</span></div>
+          <div className="header-controls">
+            <nav className="theme-switcher" aria-label={text.themeLabel}>{themes.map((item) => <button aria-pressed={theme === item.id} className="theme-option" key={item.id} onClick={() => setTheme(item.id)} title={item.label} type="button"><span aria-hidden="true" className={`theme-swatch ${item.id}`} /><span className="theme-name">{text.themeNames[item.id]}</span></button>)}</nav>
+            <nav className="language-switcher" aria-label={text.languageLabel}>{locales.map((item) => <button aria-label={item.name} aria-pressed={locale === item.id} className="language-option" key={item.id} lang={item.id} onClick={() => { setLocale(item.id); setIsQuoteOpen(false); }} type="button">{item.short}</button>)}</nav>
           </div>
-          <p className="bio">
-            Превращаю сложные идеи в элегантный код.<br />
-            Предпочитаю задачи из проектного программирования (кейсы).<br />
-            Чаще всего занимаю роли Fullstack или Backend разработчика.
-          </p>
-        </motion.header>
+        </header>
 
-        <motion.main 
-          className="bento-grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          
-          <SpotlightCard variants={itemVariants} className="card-backend">
-            <span className="mono-label">Experience // 01</span>
-            <h3 className="card-title">
-              <Terminal size={20} className="card-icon" />
-              Backend Разработка
-            </h3>
-            <div className="card-content">
-              <p className="card-text">
-                Проектирование и разработка надежных масштабируемых архитектур. Основной упор делаю на создание производительных <span className="text-highlight">REST API</span> и микросервисов с использованием <span className="text-highlight">Go</span> и <span className="text-highlight">Python</span>, а также работу с <span className="text-highlight">gRPC</span>.
-              </p>
-              <p className="card-text">
-                Глубоко погружен в проектирование баз данных: уверенно работаю с реляционными (<span className="text-highlight">PostgreSQL</span>) и NoSQL решениями (<span className="text-highlight">Redis</span>, <span className="text-highlight">MongoDB</span>). Строго слежу за качеством через настройку <span className="text-highlight">Unit-тестов</span> для покрытия критичного кода.
-              </p>
-            </div>
-          </SpotlightCard>
+        <motion.section className="intro" id="top" initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.2, 0, 0, 1] }}>
+          <div className="intro-meta"><span>{text.introIndex}</span><span className="location"><MapPin aria-hidden="true" size={15} /> {text.location}</span></div>
+          <h1>{text.introTitle[0]}<br />{text.introTitle[1]}</h1>
+          <p className="intro-copy">{text.introCopy}</p>
+          <p className="intro-jp" lang="ja">考える。つくる。届ける。</p>
+        </motion.section>
 
-          <SpotlightCard variants={itemVariants} className="card-ml">
-            <span className="mono-label">Experience // 02</span>
-            <h3 className="card-title">
-              <Brain size={20} className="card-icon" />
-              ML & Олимпиады
-            </h3>
-            <div className="card-content">
-              <p className="card-text">
-                Специализируюсь на математически сложных задачах. Использую <span className="text-highlight">Python</span> (<span className="text-highlight">PyTorch</span>, <span className="text-highlight">TensorFlow</span>) для разработки моделей машинного обучения.
-              </p>
-              <p className="card-text">
-                Имею сильный алгоритмический бэкграунд: решаю олимпиадные задачи на <span className="text-highlight">C++</span> с жесткой оптимизацией под строгие лимиты времени (TL).
-              </p>
-            </div>
-          </SpotlightCard>
+        <motion.main className="content-grid" id="content" variants={containerVariants} initial="hidden" animate="visible">
+          <motion.section variants={itemVariants} className="profile-portrait" aria-label={text.role}>
+            <img src="/image.jpg" alt="" />
+            <button aria-controls="easter-quote" aria-expanded={isQuoteOpen} aria-label={isQuoteOpen ? text.hideQuote : text.showQuote} className="quote-trigger" onClick={() => setIsQuoteOpen((isOpen) => !isOpen)} title={text.showQuote} type="button">言</button>
+            {isQuoteOpen && <blockquote className="portrait-quote" id="easter-quote" lang={text.documentLang}><p>{text.quote}</p></blockquote>}
+            <span className="portrait-stamp" lang="ja" aria-hidden="true">テッシー</span>
+          </motion.section>
+          <ExperiencePanel index={text.backendIndex} icon={<Terminal aria-hidden="true" size={21} />} title={text.backendTitle} paragraphs={text.backend} className="backend-panel" />
+          <ExperiencePanel index={text.mlIndex} icon={<BrainCircuit aria-hidden="true" size={21} />} title={text.mlTitle} paragraphs={text.ml} className="ml-panel" />
+          <ExperiencePanel index={text.infrastructureIndex} icon={<Server aria-hidden="true" size={21} />} title={text.infrastructureTitle} paragraphs={text.infrastructure} className="infrastructure-panel" />
 
-          <SpotlightCard variants={itemVariants} className="card-infra">
-            <span className="mono-label">Experience // 03</span>
-            <h3 className="card-title">
-              <Server size={20} className="card-icon" />
-              Инфраструктура
-            </h3>
-            <div className="card-content">
-              <p className="card-text">
-                Обеспечиваю полный цикл развертывания и поддержки проектов. Уверенно настраиваю веб-серверы и балансировку через <span className="text-highlight">Nginx</span>.
-              </p>
-              <p className="card-text">
-                Контейнеризирую сервисы с помощью <span className="text-highlight">Docker Compose</span> и настраиваю безопасное туннелирование локальных сервисов через <span className="text-highlight">Ngrok</span>.
-              </p>
-            </div>
-          </SpotlightCard>
-
-          <SpotlightCard variants={itemVariants} className="card-stack">
-            <span className="mono-label">Technologies</span>
-            <h3 className="card-title">
-              <LayoutGrid size={20} className="card-icon" />
-              Стек Технологий
-            </h3>
-            <div className="card-content stack-layout">
-              
-              <div className="stack-category">
-                <span className="stack-category-name">Языки & Фреймворки</span>
-                <div className="stack-tags">
-                  <span className="tag">Go</span>
-                  <span className="tag">Python</span>
-                  <span className="tag">C++</span>
-                  <span className="tag">Rust</span>
-                  <span className="tag">React</span>
-                </div>
-              </div>
-
-              <div className="stack-category">
-                <span className="stack-category-name">БД & Инфраструктура</span>
-                <div className="stack-tags">
-                  <span className="tag">PostgreSQL</span>
-                  <span className="tag">Redis</span>
-                  <span className="tag">MongoDB</span>
-                  <span className="tag">ChromaDB</span>
-                  <span className="tag">Docker Compose</span>
-                  <span className="tag">Nginx</span>
-                </div>
-              </div>
-
-              <div className="stack-category">
-                <span className="stack-category-name">Специфика & ML</span>
-                <div className="stack-tags">
-                  <span className="tag">REST API</span>
-                  <span className="tag">gRPC</span>
-                  <span className="tag">FastAPI</span>
-                  <span className="tag">WebSockets</span>
-                  <span className="tag">PyTorch</span>
-                  <span className="tag">TensorFlow</span>
-                </div>
-              </div>
-
-            </div>
-          </SpotlightCard>
-
-          <SpotlightCard variants={itemVariants} className="card-projects">
-            <span className="mono-label">Showcase</span>
-            <h3 className="card-title">
-              <FolderOpen size={20} className="card-icon" />
-              Избранные Кейсы
-            </h3>
-            <div className="card-content projects-layout">
-              <div className="project-item">
-                <div className="project-header">
-                  <h4>TimRAT</h4>
-                  <div className="project-links">
-                    <a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="icon-link"><GithubIcon size={18} /></a>
-                  </div>
-                </div>
-                <p style={{ marginTop: '0.25rem' }}>Система удаленного администрирования (Remote Administration Tool) с фокусом на производительность и безопасность.</p>
-                <div className="stack-tags" style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  <span className="tag">Rust</span>
-                  <span className="tag">Go</span>
-                </div>
-              </div>
-
-              <div className="project-item">
-                <div className="project-header">
-                  <h4>Semantic Code Search</h4>
-                  <div className="project-links">
-                    <a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="icon-link"><GithubIcon size={18} /></a>
-                  </div>
-                </div>
-                <p style={{ marginTop: '0.25rem' }}>Умный семантический поиск по кодовой базе репозитория с использованием векторных эмбеддингов и Monaco Editor.</p>
-                <div className="stack-tags" style={{ marginTop: 'auto', paddingTop: '1rem' }}>
-                  <span className="tag">Python</span>
-                  <span className="tag">FastAPI</span>
-                  <span className="tag">Go</span>
-                  <span className="tag">ChromaDB</span>
-                </div>
-              </div>
-
-
-            </div>
-          </SpotlightCard>
-
-          <SpotlightCard variants={itemVariants} className="card-contact">
-            <div>
-              <h3 className="card-title" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
-                Готов к сотрудничеству
-              </h3>
-              <p className="card-content" style={{ color: 'var(--text-secondary)' }}>
-                Открыт к новым интересным проектам и кейсам.
-              </p>
-            </div>
-            <a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="contact-btn">
-              <GithubIcon size={20} />
-              <span>GitHub Profile</span>
-            </a>
-          </SpotlightCard>
-
+          <motion.section variants={itemVariants} className="approach-panel"><span className="section-index">{text.approachIndex}</span><h2>{text.approachTitle}</h2><ol className="approach-list">{text.approach.map((item, index) => <li key={item.title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{item.title}</h3><p>{item.body}</p></div></li>)}</ol></motion.section>
+          <motion.section variants={itemVariants} className="stack-panel"><span className="section-index">{text.stackIndex}</span><h2><Layers3 aria-hidden="true" size={21} /> {text.stackTitle}</h2><div className="stack-layout"><StackGroup title={text.stackGroups[0]} tags={['Go', 'Python', 'C++', 'Rust', 'React']} /><StackGroup title={text.stackGroups[1]} tags={['PostgreSQL', 'Redis', 'MongoDB', 'ChromaDB', 'Docker Compose', 'Nginx']} /><StackGroup title={text.stackGroups[2]} tags={['REST API', 'gRPC', 'FastAPI', 'WebSockets', 'PyTorch', 'TensorFlow']} /></div></motion.section>
+          <motion.section variants={itemVariants} className="projects-panel"><div className="section-heading"><span className="section-index">{text.projectsIndex}</span><h2>{text.projectsTitle}</h2></div><div className="projects-layout"><Project name="TimRAT" description={text.projects[0]} linkLabel={text.projectLink('TimRAT')} tags={['Rust', 'Go']} /><Project name="Semantic Code Search" description={text.projects[1]} linkLabel={text.projectLink('Semantic Code Search')} tags={['Python', 'FastAPI', 'Go', 'ChromaDB']} /></div></motion.section>
+          <motion.footer variants={itemVariants} className="contact-panel"><div><span className="section-index">{text.linksIndex}</span><h2>{text.linksTitle}</h2></div><a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="contact-link">GitHub <ArrowUpRight aria-hidden="true" size={19} /></a></motion.footer>
         </motion.main>
       </div>
-    </>
+    </div>
   );
+}
+
+function ExperiencePanel({ index, icon, title, paragraphs, className }: { index: string; icon: ReactNode; title: string; paragraphs: [ReactNode, ReactNode]; className: string }) {
+  return <motion.section variants={itemVariants} className={`expertise-panel ${className}`}><span className="section-index">{index}</span><h2>{icon} {title}</h2><div className="prose"><p>{paragraphs[0]}</p><p>{paragraphs[1]}</p></div></motion.section>;
+}
+
+function StackGroup({ title, tags }: { title: string; tags: string[] }) {
+  return <div className="stack-category"><h3>{title}</h3><div className="stack-tags">{tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div></div>;
+}
+
+function Project({ name, description, linkLabel, tags }: { name: string; description: string; linkLabel: string; tags: string[] }) {
+  return <article className="project-item"><div className="project-header"><h3>{name}</h3><a href="https://github.com/tessych" target="_blank" rel="noopener noreferrer" className="icon-link" aria-label={linkLabel}><ArrowUpRight aria-hidden="true" size={19} /></a></div><p>{description}</p><div className="stack-tags project-tags">{tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div></article>;
 }
 
 export default App;
