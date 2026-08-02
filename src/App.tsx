@@ -76,7 +76,7 @@ const copy: Record<Locale, Copy> = {
   },
   en: {
     documentLang: 'en', role: 'developer', skip: 'Skip to content', home: 'tessych, back to top', themeLabel: 'Visual themes', languageLabel: 'Language',
-    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' }, location: 'Novosibirsk', introIndex: '01 / ABOUT', introTitle: ['Building', 'systems.'],
+    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' }, location: 'Novosibirsk', introIndex: '01 / ABOUT', introTitle: ['From an idea', 'to a service.'],
     introCopy: 'Project-focused backend and full-stack developer. I turn ideas into considered services, from architecture and data through deployment.',
     backendIndex: '02 / BUILD', backendTitle: 'Backend engineering',
     backend: ['I design reliable, scalable architectures with a focus on high-performance REST APIs, Go and Python microservices, and gRPC.', 'I work with PostgreSQL, Redis, and MongoDB, and cover critical logic with unit tests.'],
@@ -92,7 +92,7 @@ const copy: Record<Locale, Copy> = {
   },
   ja: {
     documentLang: 'ja', role: 'システム開発者', skip: '本文へ移動', home: 'tessych、ページの先頭へ', themeLabel: 'テーマ', languageLabel: '言語',
-    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空' }, location: 'ノヴォシビルスク', introIndex: '01 / 自己紹介', introTitle: ['仕組みを', 'つくる。'],
+    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空' }, location: 'ノヴォシビルスク', introIndex: '01 / 自己紹介', introTitle: ['アイデアから', 'サービスまで。'],
     introCopy: 'プロジェクト志向のバックエンド・フルスタック開発者です。設計とデータからデプロイまで、アイデアを整ったサービスにします。',
     backendIndex: '02 / 開発', backendTitle: 'バックエンド開発',
     backend: ['信頼性と拡張性を備えたアーキテクチャを設計します。高速な REST API、Go・Python のマイクロサービス、gRPC が主な領域です。', 'PostgreSQL、Redis、MongoDB を扱い、重要なロジックはユニットテストで守ります。'],
