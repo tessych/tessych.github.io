@@ -48,7 +48,7 @@ button { cursor: pointer; }
 .profile-portrait, .expertise-panel, .approach-panel, .stack-panel, .projects-panel, .contact-panel { min-width: 0; border-right: var(--rule) solid var(--line); border-bottom: var(--rule) solid var(--line); }
 .profile-portrait { grid-column: span 4; position: relative; min-height: 27rem; overflow: hidden; background: var(--accent); }
 .profile-portrait img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 60% center; filter: grayscale(1) contrast(1.2); mix-blend-mode: multiply; opacity: 0.83; }
-.portrait-stamp { position: absolute; right: var(--space-4); bottom: var(--space-4); color: var(--accent-ink); font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; writing-mode: vertical-rl; }
+.portrait-stamp { position: absolute; right: var(--space-4); bottom: var(--space-4); color: var(--portrait-stamp); font-family: var(--font-display); font-size: 1.45rem; font-weight: 700; writing-mode: vertical-rl; }
 .quote-trigger { position: absolute; top: var(--space-3); left: var(--space-3); z-index: 2; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; padding: 0; border: var(--rule) solid var(--accent-ink); border-radius: var(--radius-sm); background: var(--paper-raised); color: var(--ink); font-family: var(--font-display); font-size: 1rem; font-weight: 600; line-height: 1; transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
 .quote-trigger:hover, .quote-trigger[aria-expanded="true"] { background: var(--accent); color: var(--accent-ink); }
 .quote-trigger:active { transform: scale(0.96); }

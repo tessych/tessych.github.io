@@ -27,6 +27,7 @@
   --line: #3c4858;
   --accent: #7798c7;
   --accent-ink: #10151d;
+  --portrait-stamp: #f9f8f5;
   --focus: #c8d8ff;
   --swatch-aoi: #7798c7;
   --swatch-kumo: #657f9d;
@@ -41,6 +42,7 @@
   --line: #b8bdc2;
   --accent: #657f9d;
   --accent-ink: #f9f8f5;
+  --portrait-stamp: #f9f8f5;
   --focus: #244f78;
 }
 
@@ -52,5 +54,6 @@
   --line: #4a4657;
   --accent: #9b91c3;
   --accent-ink: #17151e;
+  --portrait-stamp: #f9f8f5;
   --focus: #d5ccff;
 }
