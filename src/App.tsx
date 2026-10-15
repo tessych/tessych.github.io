@@ -16,8 +16,9 @@ const locales = [
 
 type ThemeId = (typeof themes)[number]['id'];
 type Locale = (typeof locales)[number]['id'];
-type FocusItem = { title: string; body: string };
-type AreaItem = { title: string; paragraphs: [string, string] };
+type AboutTakeaway = { tag: string; title: string; body: string };
+type AreaItem = { mod: string; title: string; paragraphs: [string, string]; skills: string[] };
+type FocusItem = { step: string; badge: string; title: string; body: string };
 type StackItem = { name: string; role: string; desc: string; year: string };
 type StackCategory = { title: string; note: string; items: StackItem[] };
 
@@ -41,7 +42,7 @@ type Copy = {
   copyTgLabel: string;
   aboutIndex: string;
   aboutTitle: string;
-  about: [string, string, string];
+  aboutTakeaways: [AboutTakeaway, AboutTakeaway, AboutTakeaway];
   areasIndex: string;
   areasTitle: string;
   areas: [AreaItem, AreaItem, AreaItem];
@@ -54,6 +55,11 @@ type Copy = {
   linksIndex: string;
   linksTitle: string;
   linksCopy: string;
+  contactTelegramTag: string;
+  contactTelegramAction: string;
+  contactGithubTag: string;
+  contactGithubAction: string;
+  contactStatus: string;
   quote: string;
   showQuote: string;
   hideQuote: string;
@@ -81,48 +87,72 @@ const copy: Record<Locale, Copy> = {
     copyTgLabel: 'Скопировать ник Telegram @tessychlove',
     aboutIndex: '01 / ОБО МНЕ',
     aboutTitle: 'Люблю, когда сложное становится понятным и надежным.',
-    about: [
-      'Мне интересны задачи на стыке архитектуры бэкенда и информационной безопасности: понимать устройство данных, векторы атак и поведение сервиса под нагрузкой.',
-      'Опыт в Red Team и веб-пентесте научил смотреть на систему глазами атакующего: лучшие архитектурные решения рождаются там, где безопасность заложена в модель сервиса с первого дня.',
-      'В промышленной разработке ценю инженерную строгость и предсказуемость: ясные контракты данных, отказоустойчивость под нагрузкой и код без оверинжиниринга.',
+    aboutTakeaways: [
+      {
+        tag: '// 01',
+        title: 'Архитектура & Безопасность',
+        body: 'Мне интересны задачи на стыке архитектуры бэкенда и информационной безопасности: понимать устройство данных, векторы атак и поведение сервиса под нагрузкой.',
+      },
+      {
+        tag: '// 02',
+        title: 'Red Team Мышление',
+        body: 'Опыт в Red Team и веб-пентесте научил смотреть на систему глазами атакующего: лучшие архитектурные решения рождаются там, где безопасность заложена в модель сервиса с первого дня.',
+      },
+      {
+        tag: '// 03',
+        title: 'Инженерная строгость',
+        body: 'В промышленной разработке ценю инженерную строгость и предсказуемость: ясные контракты данных, отказоустойчивость под нагрузкой и код без оверинжиниринга.',
+      },
     ],
     areasIndex: '02 / НАПРАВЛЕНИЯ',
     areasTitle: 'Чем занимаюсь',
     areas: [
       {
+        mod: 'MOD_01 // CORE',
         title: 'Backend & Архитектура',
         paragraphs: [
           'Делаю REST и gRPC сервисы на Go и Python, проектирую масштабируемые API и взаимодействие по WebSockets.',
           'Перед реализацией выстраиваю модель данных и границы сервисов, чтобы система развивалась без накопления архитектурного долга.',
         ],
+        skills: ['Go', 'Microservices', 'REST & gRPC', 'Strict Schemas'],
       },
       {
+        mod: 'MOD_02 // RED_TEAM',
         title: 'Offensive Security & Red Team',
         paragraphs: [
           'Провожу анализ защищенности веб-приложений и моделирование угроз, выявляя логические и структурные уязвимости.',
           'Знание практических техник эксплуатации помогает проектировать сервисы, защищенные на уровне бизнес-логики.',
         ],
+        skills: ['Threat Modeling', 'Burp Suite', 'Web Pentest', 'IDOR & Logic'],
       },
       {
+        mod: 'MOD_03 // SYSTEMS',
         title: 'Промышленная разработка & Системы',
         paragraphs: [
           'Разрабатываю сервисы с расчетом на реальную эксплуатацию: продуманное кэширование, минимизация накладных расходов и надежная обработка сбоев.',
           'Основной стек бэкенда — Go; для системной производительности и контроля ресурсов применяю C++; Python использую для прикладного ML и автоматизации.',
         ],
+        skills: ['C++', 'Docker Compose', 'Linux & Bash', 'Fault Tolerance'],
       },
     ],
     focusIndex: '03 / В РАБОТЕ',
     focusTitle: 'На что обращаю внимание',
     focus: [
       {
+        step: '01',
+        badge: 'THREAT MODEL',
         title: 'Сначала контекст и модель угроз',
         body: 'Разбираюсь в данных, бизнес-логике и потенциальных векторах атак. Архитектура рождается из требований, а не из привычки.',
       },
       {
+        step: '02',
+        badge: 'FAULT ISOLATION',
         title: 'Устойчивость к сбоям',
         body: 'Покрываю критическую логику тестами, валидирую граничные случаи и изолирую внешние зависимости.',
       },
       {
+        step: '03',
+        badge: 'DETERMINISTIC OPS',
         title: 'Надежная эксплуатация',
         body: 'Собираю окружение в Docker Compose и настраиваю Nginx так, чтобы сервис функционировал стабильно и предсказуемо.',
       },
@@ -172,7 +202,12 @@ const copy: Record<Locale, Copy> = {
     ],
     linksIndex: '05 / СВЯЗЬ',
     linksTitle: 'Всегда открыт к диалогу.',
-    linksCopy: 'Код и репозитории — на GitHub. Для вопросов, обсуждения проектов и идей — пишите в Telegram.',
+    linksCopy: 'Код и репозитории — на GitHub. Для архитектурных дискуссий, задач по безопасности и новых проектов — пишите в Telegram.',
+    contactTelegramTag: 'ПРЯМОЙ КАНАЛ СВЯЗИ',
+    contactTelegramAction: 'Написать',
+    contactGithubTag: 'ОТКРЫТЫЙ КОД & РЕПОЗИТОРИИ',
+    contactGithubAction: 'Открыть профиль',
+    contactStatus: 'Новосибирск • UTC+7 • Открыт к обсуждению проектов',
     quote: 'Противник не сможет узнать твой следующий ход, если ты и сам его не знаешь.',
     showQuote: 'Показать цитату',
     hideQuote: 'Скрыть цитату',
@@ -198,48 +233,72 @@ const copy: Record<Locale, Copy> = {
     copyTgLabel: 'Copy Telegram handle @tessychlove',
     aboutIndex: '01 / ABOUT',
     aboutTitle: 'I like making complex systems clear, resilient, and secure.',
-    about: [
-      'I focus on the intersection of backend engineering and offensive security: understanding data models, attack surfaces, and system behavior under stress.',
-      'My background in Red Teaming and web pentesting taught me to evaluate software from an attacker perspective: solid security begins at the design level, not as an afterthought.',
-      'In production engineering, I value predictability and rigor: well-defined data contracts, fault tolerance under stress, and code without overengineering.',
+    aboutTakeaways: [
+      {
+        tag: '// 01',
+        title: 'Architecture & Security',
+        body: 'I focus on the intersection of backend engineering and offensive security: understanding data models, attack surfaces, and system behavior under stress.',
+      },
+      {
+        tag: '// 02',
+        title: 'Offensive Mindset',
+        body: 'My background in Red Teaming and web pentesting taught me to evaluate software from an attacker perspective: solid security begins at the design level, not as an afterthought.',
+      },
+      {
+        tag: '// 03',
+        title: 'Industrial Rigor',
+        body: 'In production engineering, I value predictability and rigor: well-defined data contracts, fault tolerance under stress, and code without overengineering.',
+      },
     ],
     areasIndex: '02 / AREAS',
     areasTitle: 'What I work on',
     areas: [
       {
+        mod: 'MOD_01 // CORE',
         title: 'Backend & Architecture',
         paragraphs: [
           'Building REST and gRPC services in Go and Python, architecting scalable APIs and real-time streaming via WebSockets.',
           'I design data schemas and service boundaries early on to prevent architectural debt as systems scale.',
         ],
+        skills: ['Go', 'Microservices', 'REST & gRPC', 'Strict Schemas'],
       },
       {
+        mod: 'MOD_02 // RED_TEAM',
         title: 'Offensive Security & Red Team',
         paragraphs: [
           'Performing web application security assessments and threat modeling to uncover logical and architectural flaws.',
           'Hands-on offensive knowledge enables me to build software with structural defenses built directly into the business logic.',
         ],
+        skills: ['Threat Modeling', 'Burp Suite', 'Web Pentest', 'IDOR & Logic'],
       },
       {
+        mod: 'MOD_03 // SYSTEMS',
         title: 'Production Engineering & Systems',
         paragraphs: [
           'Engineering services built for real-world operations: smart caching, low resource overhead, and graceful degradation during failures.',
           'Primary backend stack is Go; using C++ for low-level performance and resource control; leveraging Python for applied ML tasks and automation.',
         ],
+        skills: ['C++', 'Docker Compose', 'Linux & Bash', 'Fault Tolerance'],
       },
     ],
     focusIndex: '03 / APPROACH',
     focusTitle: 'What I pay attention to',
     focus: [
       {
+        step: '01',
+        badge: 'THREAT MODEL',
         title: 'Context & Threat Model First',
         body: 'I analyze the data flow, business rules, and attack vectors before coding. Architecture should reflect context, not habit.',
       },
       {
+        step: '02',
+        badge: 'FAULT ISOLATION',
         title: 'Resilience Under Pressure',
         body: 'I write unit and integration tests for critical business logic, validating edge cases and isolating external failure modes.',
       },
       {
+        step: '03',
+        badge: 'DETERMINISTIC OPS',
         title: 'Reliable Production Operations',
         body: 'I configure Docker Compose and Nginx so services run predictably and repeatably in production environments.',
       },
@@ -290,6 +349,11 @@ const copy: Record<Locale, Copy> = {
     linksIndex: '05 / CONTACT',
     linksTitle: 'Open to interesting conversations.',
     linksCopy: 'Explore code and repositories on GitHub. Reach out on Telegram for discussions, collaborations, and projects.',
+    contactTelegramTag: 'DIRECT CHANNEL',
+    contactTelegramAction: 'Open Chat',
+    contactGithubTag: 'OPEN SOURCE & CODE',
+    contactGithubAction: 'View Profile',
+    contactStatus: 'Novosibirsk • UTC+7 • Available for projects & discussions',
     quote: 'Your opponent cannot know your next move if you do not know it yourself.',
     showQuote: 'Show quote',
     hideQuote: 'Hide quote',
@@ -315,48 +379,72 @@ const copy: Record<Locale, Copy> = {
     copyTgLabel: 'Telegramユーザー名 @tessychlove をコピー',
     aboutIndex: '01 / 自己紹介',
     aboutTitle: '複雑なシステムを、明快で安全な形にするのが好きです。',
-    about: [
-      'バックエンド設計とセキュリティの交差点にある課題に惹かれます。データ構造、攻撃対象領域、負荷時の挙動まで見据えます。',
-      'Red TeamとWeb診断の経験から、攻撃者の思考でシステムを評価。真の堅牢性は、後付けではなく設計段階から組み込まれます。',
-      '商用開発において重視するのは予測可能性と技術的規律です。明確なデータ規約、高負荷時の耐障害性、過剰設計のない堅実なコードを追求します。',
+    aboutTakeaways: [
+      {
+        tag: '// 01',
+        title: '設計とセキュリティ',
+        body: 'バックエンド設計とセキュリティの交差点にある課題に惹かれます。データ構造、攻撃対象領域、負荷時の挙動まで見据えます。',
+      },
+      {
+        tag: '// 02',
+        title: '攻撃者の思考',
+        body: 'Red TeamとWeb診断の経験から、攻撃者の思考でシステムを評価。真の堅牢性は、後付けではなく設計段階から組み込まれます。',
+      },
+      {
+        tag: '// 03',
+        title: '技術的規律',
+        body: '商用開発において重視するのは予測可能性と技術的規律です。明確なデータ規約、高負荷時の耐障害性、過剰設計のない堅実なコードを追求します。',
+      },
     ],
     areasIndex: '02 / 領域',
     areasTitle: '取り組んでいること',
     areas: [
       {
+        mod: 'MOD_01 // CORE',
         title: 'バックエンド・アーキテクチャ',
         paragraphs: [
           'GoとPythonでREST/gRPCサービスを開発し、WebSocketsを用いたリアルタイム通信も実装。',
           '初期段階でデータモデルとサービス境界を整理し、将来のスケールに耐えうる設計を徹底します。',
         ],
+        skills: ['Go', 'Microservices', 'REST & gRPC', 'Strict Schemas'],
       },
       {
+        mod: 'MOD_02 // RED_TEAM',
         title: 'オフェンシブセキュリティ・Red Team',
         paragraphs: [
           'Webアプリケーションの脆弱性診断と脅威モデリングを行い、構造的な欠陥を特定。',
           '実践的な攻撃手法への深い理解を活かし、ビジネスロジック層から安全なコードを構築します。',
         ],
+        skills: ['Threat Modeling', 'Burp Suite', 'Web Pentest', 'IDOR & Logic'],
       },
       {
+        mod: 'MOD_03 // SYSTEMS',
         title: '商用開発・システム設計',
         paragraphs: [
           '実運用を想定したサービス構築：適切なキャッシング、オーバーヘッドの最小化、障害発生時の安全なフォールバック設計。',
           'バックエンドの主力はGo。リソース制御や高速処理にはC++、応用MLや自動化にはPythonを活用します。',
         ],
+        skills: ['C++', 'Docker Compose', 'Linux & Bash', 'Fault Tolerance'],
       },
     ],
     focusIndex: '03 / 仕事の進め方',
     focusTitle: '大切にしていること',
     focus: [
       {
+        step: '01',
+        badge: 'THREAT MODEL',
         title: '文脈と脅威モデルをまず見極める',
         body: 'データフローと潜在的な攻撃ベクトルを把握してから実装へ。設計は慣習ではなく文脈から導きます。',
       },
       {
+        step: '02',
+        badge: 'FAULT ISOLATION',
         title: '負荷と障害への耐性',
         body: '重要なビジネスロジックをテストで保護し、境界値や外部依存の障害を想定して実装します。',
       },
       {
+        step: '03',
+        badge: 'DETERMINISTIC OPS',
         title: '安定した本番起動',
         body: 'Docker ComposeとNginxを適切に構成し、本番環境でも再現性高く安定稼働させます。',
       },
@@ -407,6 +495,11 @@ const copy: Record<Locale, Copy> = {
     linksIndex: '05 / 連絡',
     linksTitle: 'いつでも気軽にご連絡ください。',
     linksCopy: 'コードとリポジトリはGitHubにあります。ご相談やプロジェクトのお話はTelegramまでどうぞ。',
+    contactTelegramTag: 'ダイレクト連絡先',
+    contactTelegramAction: 'メッセージを送る',
+    contactGithubTag: 'オープンソース・コード',
+    contactGithubAction: 'プロフィールを見る',
+    contactStatus: 'ノヴォシビルスク • UTC+7 • プロジェクトのご相談歓迎',
     quote: '男の子であることは性別の問題。男であることは時間の問題。クズであることは、もはや問題ですらない。',
     showQuote: '引用を表示',
     hideQuote: '引用を閉じる',
@@ -610,12 +703,6 @@ function App() {
                 {novosibirskTime ? `${novosibirskTime} UTC+7` : 'UTC+7'}
               </time>
             </div>
-            <div className="hero-mech-tag" aria-hidden="true">
-              <span className="mech-indicator" />
-              <span>SYS_INIT // RED_TEAM_NODE_01</span>
-              <span className="mech-divider">/</span>
-              <span className="mech-jp">システム稼働中</span>
-            </div>
             <h1>
               <span className="hero-greeting">{text.heroTitle[0]}</span>
               <br />
@@ -721,11 +808,20 @@ function App() {
           <div className="section-label">
             {text.aboutIndex}
           </div>
-          <div className="about-body">
-            <h2>{text.aboutTitle}</h2>
-            <div>
-              {text.about.map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
+          <div className="about-grid">
+            <div className="about-headline-col">
+              <h2>{text.aboutTitle}</h2>
+              <div className="about-accent-line" aria-hidden="true" />
+            </div>
+            <div className="about-takeaways-col">
+              {text.aboutTakeaways.map((item, index) => (
+                <div className="about-takeaway-item" key={index}>
+                  <div className="about-takeaway-header">
+                    <span className="about-takeaway-tag">{item.tag}</span>
+                    <span className="about-takeaway-title">{item.title}</span>
+                  </div>
+                  <p className="about-takeaway-body">{item.body}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -742,12 +838,23 @@ function App() {
             <span className="section-label">{text.areasIndex}</span>
             <h2>{text.areasTitle}</h2>
           </div>
-          <div className="areas-list">
+          <div className="spec-cards-grid">
             {text.areas.map((area, index) => (
-              <article className="area-item" key={index}>
+              <article className="spec-card" key={index}>
+                <div className="spec-card-header">
+                  <span className="spec-card-mod">{area.mod}</span>
+                  <span className="spec-card-corner" aria-hidden="true">■</span>
+                </div>
                 <h3>{area.title}</h3>
-                <p>{area.paragraphs[0]}</p>
-                <p>{area.paragraphs[1]}</p>
+                <div className="spec-card-text">
+                  <p>{area.paragraphs[0]}</p>
+                  <p>{area.paragraphs[1]}</p>
+                </div>
+                <div className="spec-card-skills" aria-label="Skills">
+                  {area.skills.map((skill, sIdx) => (
+                    <span className="spec-skill-pill" key={sIdx}>{skill}</span>
+                  ))}
+                </div>
               </article>
             ))}
           </div>
@@ -765,17 +872,21 @@ function App() {
             <span className="section-label">{text.focusIndex}</span>
             <h2>{text.focusTitle}</h2>
           </div>
-          <ol className="focus-list">
-            {text.focus.map((item, index) => (
-              <li key={index}>
-                <span>{String(index + 1).padStart(2, '0')}</span>
-                <div>
+          <div className="pipeline-stepper">
+            <div className="pipeline-line" aria-hidden="true" />
+            <div className="pipeline-grid">
+              {text.focus.map((item, index) => (
+                <div className="pipeline-step" key={index}>
+                  <div className="pipeline-step-top">
+                    <span className="pipeline-step-num">STEP {item.step}</span>
+                    <span className="pipeline-step-badge">{item.badge}</span>
+                  </div>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                 </div>
-              </li>
-            ))}
-          </ol>
+              ))}
+            </div>
+          </div>
         </motion.section>
 
         <motion.section
@@ -840,44 +951,70 @@ function App() {
         viewport={{ once: true, amount: 0.15 }}
       >
         <span className="section-label">{text.linksIndex}</span>
-        <div className="contact-content">
-          <div className="contact-intro">
+        <div className="contact-hub-wrapper">
+          <div className="contact-hub-intro">
             <h2>{text.linksTitle}</h2>
-            <p>{text.linksCopy}</p>
+            <p className="contact-hub-copy">{text.linksCopy}</p>
+            <div className="contact-status-chip">
+              <span className="status-dot" aria-hidden="true" />
+              <span>{text.contactStatus}</span>
+            </div>
           </div>
-          <div className="contact-actions">
-            <a
-              href="https://t.me/tessychlove"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-link contact-link--telegram"
-              aria-label="Telegram @tessychlove"
-            >
-              <Send aria-hidden="true" size={17} /> Telegram (@tessychlove){' '}
-              <ArrowUpRight aria-hidden="true" size={17} />
-            </a>
-            <button
-              type="button"
-              className="contact-link contact-copy-button"
-              onClick={handleCopyTelegram}
-              aria-label={text.copyTgLabel}
-              title={text.copyTgLabel}
-            >
-              {isCopied ? <Check aria-hidden="true" size={17} /> : <CopyIcon aria-hidden="true" size={17} />}
-              <span>{isCopied ? text.copiedLabel : '@tessychlove'}</span>
-              <span className="visually-hidden" aria-live="polite">
-                {isCopied ? text.copiedLabel : ''}
-              </span>
-            </button>
-            <a
-              href="https://github.com/tessych"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-link"
-              aria-label={text.projectLink}
-            >
-              <Code2 aria-hidden="true" size={17} /> GitHub <ArrowUpRight aria-hidden="true" size={17} />
-            </a>
+          <div className="contact-channels-grid">
+            <div className="contact-channel-card">
+              <div className="channel-card-head">
+                <div className="channel-card-brand">
+                  <Send aria-hidden="true" size={17} />
+                  <span className="channel-name">Telegram</span>
+                </div>
+                <span className="channel-tag">{text.contactTelegramTag}</span>
+              </div>
+              <div className="channel-address">@tessychlove</div>
+              <div className="channel-actions">
+                <a
+                  href="https://t.me/tessychlove"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="channel-btn channel-btn--primary"
+                  aria-label="Telegram @tessychlove"
+                >
+                  <span>{text.contactTelegramAction}</span>
+                  <ArrowUpRight aria-hidden="true" size={15} />
+                </a>
+                <button
+                  type="button"
+                  className="channel-btn channel-btn--secondary"
+                  onClick={handleCopyTelegram}
+                  aria-label={text.copyTgLabel}
+                >
+                  {isCopied ? <Check aria-hidden="true" size={15} /> : <CopyIcon aria-hidden="true" size={15} />}
+                  <span>{isCopied ? text.copiedLabel : text.telegramLabel}</span>
+                </button>
+              </div>
+            </div>
+
+            <div className="contact-channel-card">
+              <div className="channel-card-head">
+                <div className="channel-card-brand">
+                  <Code2 aria-hidden="true" size={17} />
+                  <span className="channel-name">GitHub</span>
+                </div>
+                <span className="channel-tag">{text.contactGithubTag}</span>
+              </div>
+              <div className="channel-address">github.com/tessych</div>
+              <div className="channel-actions">
+                <a
+                  href="https://github.com/tessych"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="channel-btn channel-btn--primary"
+                  aria-label={text.projectLink}
+                >
+                  <span>{text.contactGithubAction}</span>
+                  <ArrowUpRight aria-hidden="true" size={15} />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </motion.footer>
