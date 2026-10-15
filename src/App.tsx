@@ -52,7 +52,7 @@ type Copy = {
   focus: [FocusItem, FocusItem, FocusItem];
   stackIndex: string;
   stackTitle: string;
-  stackCategories: [StackCategory, StackCategory, StackCategory];
+  stackCategories: StackCategory[];
   linksIndex: string;
   linksTitle: string;
   linksCopy: string;
@@ -109,7 +109,7 @@ const copy: Record<Locale, Copy> = {
         title: 'Промышленная разработка & Системы',
         paragraphs: [
           'Разрабатываю сервисы с расчетом на реальную эксплуатацию: продуманное кэширование, минимизация накладных расходов и надежная обработка сбоев.',
-          'Использую Go и Python для продуктовых API и воркеров; C++ и Rust — когда критичны системная производительность и контроль над ресурсами.',
+          'Основной стек бэкенда — Go; для системной производительности и контроля ресурсов применяю C++; Python использую для прикладного ML и автоматизации.',
         ],
       },
     ],
@@ -134,33 +134,41 @@ const copy: Record<Locale, Copy> = {
     stackCategories: [
       {
         title: 'Backend & Core',
-        note: 'Языки и системная логика распределенных сервисов.',
+        note: 'Языки бэкенда, системная логика и прикладной ML.',
         items: [
-          { name: 'Go', role: 'Microservices & Concurrency', desc: 'Высоконагруженные REST и gRPC сервисы, конкурентные воркеры и потоковая обработка.', year: '2022' },
-          { name: 'Python', role: 'FastAPI & Automation', desc: 'Продуктовые API, асинхронные микросервисы, скрипты анализа и внутренний тулинг.', year: '2021' },
-          { name: 'C++ / Rust', role: 'Systems & Performance', desc: 'Системные компоненты с прямым контролем памяти и минимальным накладным расходом.', year: '2023' },
-          { name: 'TypeScript', role: 'React & Interfaces', desc: 'Типизированные клиентские панели, дашборды и интеграция WebSocket API.', year: '2023' },
+          { name: 'Go', role: 'Microservices & Concurrency', desc: 'Основной язык бэкенда: высоконагруженные REST и gRPC сервисы, конкурентные воркеры и обработка потоков.', year: '2025' },
+          { name: 'C++', role: 'Systems & Performance', desc: 'Системное программирование, алгоритмическая строгость и эффективный контроль ресурсов памяти.', year: '2024' },
+          { name: 'Python', role: 'Applied ML & Automation', desc: 'Прикладной ML, работа с эмбеддингами, базовая интеграция моделей и скрипты автоматизации.', year: '2023' },
+          { name: 'TypeScript', role: 'Web & Interfaces', desc: 'Типизированные внутренние веб-панели, клиентские интерфейсы и WebSocket-клиенты.', year: '2024' },
         ],
       },
       {
         title: 'Data & Storage',
-        note: 'Модели данных, транзакции, кэширование и распределенное состояние.',
+        note: 'Модели данных, транзакции, кэширование и векторный поиск.',
         items: [
-          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Проектирование схем, транзакции, индексы и оптимизация сложных запросов под нагрузкой.', year: '2022' },
-          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'Кэширование горячих данных, распределенные блокировки и очереди сообщений.', year: '2022' },
-          { name: 'MongoDB', role: 'Document Store', desc: 'Документоориентированные коллекции и гибкие структуры для событийных данных.', year: '2023' },
-          { name: 'ChromaDB', role: 'Vector Search', desc: 'Векторные эмбеддинги, семантический поиск и интеграция с языковыми моделями.', year: '2024' },
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Проектирование реляционных схем, транзакции, индексы и оптимизация сложных запросов под нагрузкой.', year: '2025' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'Документоориентированные коллекции для гибких структур и событийных данных.', year: '2025' },
+          { name: 'Redis', role: 'In-Memory Cache', desc: 'Кэширование горячих данных, сессионные хранилища и распределенные очереди.', year: '2026' },
+          { name: 'ChromaDB', role: 'Vector Search & ML', desc: 'Векторная база данных для семантического поиска и работы с ML-эмбеддингами.', year: '2026' },
         ],
       },
       {
-        title: 'Security & Infra',
-        note: 'Анализ защищенности, сетевые протоколы и эксплуатация.',
+        title: 'Offensive Security',
+        note: 'Анализ защищенности веб-приложений, моделирование угроз и Red Team.',
         items: [
-          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Анализ защищенности веб-приложений, фаззинг API, выявление логических уязвимостей и IDOR.', year: '2022' },
-          { name: 'Docker Compose', role: 'Containerization', desc: 'Изоляция окружений, мультистейдж сборка и воспроизводимое развертывание сервисов.', year: '2022' },
-          { name: 'Linux & Bash', role: 'System Internals', desc: 'Низкоуровневая диагностика, скриптинг, аудит процессов и harden-настройка окружения.', year: '2021' },
-          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Маршрутизация запросов, SSL/TLS терминация, балансировка и защита от спама.', year: '2022' },
-          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Двунаправленный real-time стриминг и бинарные контракты Protobuf.', year: '2023' },
+          { name: 'Burp Suite', role: 'Web Pentest', desc: 'Анализ защищенности веб-приложений, фаззинг API, выявление логических уязвимостей и IDOR.', year: '2024' },
+          { name: 'Threat Modeling', role: 'Security Architecture', desc: 'Моделирование векторов атак и проектирование устойчивости на уровне бизнес-логики.', year: '2024' },
+          { name: 'Network Analysis', role: 'Traffic & Protocols', desc: 'Анализ сетевого трафика, исследование заголовков, дампов пакетов и сетевых уязвимостей.', year: '2024' },
+        ],
+      },
+      {
+        title: 'Infrastructure & Protocols',
+        note: 'Контейнеризация, сетевые протоколы и эксплуатация сервисов.',
+        items: [
+          { name: 'Docker Compose', role: 'Containerization', desc: 'Изоляция окружений, мультистейдж сборка и воспроизводимое развертывание сервисов.', year: '2025' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: 'Низкоуровневая диагностика, скриптинг, аудит процессов и harden-настройка окружения.', year: '2023' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Маршрутизация запросов, SSL/TLS терминация, балансировка и защита от спама.', year: '2025' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Двунаправленный real-time стриминг и бинарные контракты Protobuf.', year: '2025' },
         ],
       },
     ],
@@ -218,7 +226,7 @@ const copy: Record<Locale, Copy> = {
         title: 'Production Engineering & Systems',
         paragraphs: [
           'Engineering services built for real-world operations: smart caching, low resource overhead, and graceful degradation during failures.',
-          'Leveraging Go and Python for product APIs and background workers; C++ and Rust where low-level performance and resource control are paramount.',
+          'Primary backend stack is Go; using C++ for low-level performance and resource control; leveraging Python for applied ML tasks and automation.',
         ],
       },
     ],
@@ -243,33 +251,41 @@ const copy: Record<Locale, Copy> = {
     stackCategories: [
       {
         title: 'Backend & Core',
-        note: 'Languages and core logic for distributed backend systems.',
+        note: 'Backend languages, core system logic, and applied ML.',
         items: [
-          { name: 'Go', role: 'Microservices & Concurrency', desc: 'High-throughput REST and gRPC services, concurrent workers, and streaming pipelines.', year: '2022' },
-          { name: 'Python', role: 'FastAPI & Automation', desc: 'Production APIs, async microservices, security automation scripts, and tooling.', year: '2021' },
-          { name: 'C++ / Rust', role: 'Systems & Performance', desc: 'Low-level system components with direct memory control and minimal overhead.', year: '2023' },
-          { name: 'TypeScript', role: 'React & Interfaces', desc: 'Strictly typed interfaces, internal management panels, and WebSocket clients.', year: '2023' },
+          { name: 'Go', role: 'Microservices & Concurrency', desc: 'Primary backend language: high-throughput REST and gRPC services, concurrent workers, and streaming pipelines.', year: '2025' },
+          { name: 'C++', role: 'Systems & Performance', desc: 'Low-level systems programming, strict memory efficiency, and deterministic execution.', year: '2024' },
+          { name: 'Python', role: 'Applied ML & Automation', desc: 'Applied machine learning, vector embeddings, model integrations, and security automation scripts.', year: '2023' },
+          { name: 'TypeScript', role: 'Web & Interfaces', desc: 'Type-safe internal tooling panels, management dashboards, and WebSocket clients.', year: '2024' },
         ],
       },
       {
         title: 'Data & Storage',
         note: 'Data modeling, transaction safety, caching, and state management.',
         items: [
-          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Schema architecture, transactional integrity, index optimization, and high-load tuning.', year: '2022' },
-          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'Hot-data caching, distributed locks, session persistence, and message brokering.', year: '2022' },
-          { name: 'MongoDB', role: 'Document Store', desc: 'Document collections and schema patterns for flexible, event-driven pipelines.', year: '2023' },
-          { name: 'ChromaDB', role: 'Vector Search', desc: 'Vector embeddings, similarity lookup, and semantic search pipelines.', year: '2024' },
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Schema architecture, transactional integrity, index optimization, and high-load tuning.', year: '2025' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'Document collections and schema patterns for flexible, event-driven pipelines.', year: '2025' },
+          { name: 'Redis', role: 'In-Memory Cache', desc: 'Hot-data caching, session persistence, distributed state, and message brokering.', year: '2026' },
+          { name: 'ChromaDB', role: 'Vector Search & ML', desc: 'Vector database for embeddings storage, similarity lookup, and semantic search.', year: '2026' },
         ],
       },
       {
-        title: 'Security & Infra',
-        note: 'Security assessment, networking protocols, and reliable operations.',
+        title: 'Offensive Security',
+        note: 'Web application security assessments, threat modeling, and Red Teaming.',
         items: [
-          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Web pentesting, API fuzzing, threat modeling, and uncovering architectural flaws.', year: '2022' },
-          { name: 'Docker Compose', role: 'Containerization', desc: 'Service isolation, multi-stage container builds, and reproducible staging environments.', year: '2022' },
-          { name: 'Linux & Bash', role: 'System Internals', desc: 'OS-level debugging, shell scripting, audit logging, and server hardening.', year: '2021' },
-          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Traffic routing, SSL/TLS termination, rate limiting, and reverse proxy security.', year: '2022' },
-          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Bidirectional real-time streaming and binary Protobuf contracts.', year: '2023' },
+          { name: 'Burp Suite', role: 'Web Pentest', desc: 'Web pentesting, API fuzzing, threat modeling, and uncovering architectural flaws.', year: '2024' },
+          { name: 'Threat Modeling', role: 'Security Architecture', desc: 'Evaluating attack surfaces and building defensive invariants directly into business logic.', year: '2024' },
+          { name: 'Network Analysis', role: 'Traffic & Protocols', desc: 'Traffic inspection, packet capture analysis, header auditing, and protocol vulnerability testing.', year: '2024' },
+        ],
+      },
+      {
+        title: 'Infrastructure & Protocols',
+        note: 'Containerization, networking protocols, and reliable service operations.',
+        items: [
+          { name: 'Docker Compose', role: 'Containerization', desc: 'Service isolation, multi-stage container builds, and reproducible staging environments.', year: '2025' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: 'OS-level debugging, shell scripting, audit logging, and server hardening.', year: '2023' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Traffic routing, SSL/TLS termination, rate limiting, and reverse proxy security.', year: '2025' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Bidirectional real-time streaming and binary Protobuf contracts.', year: '2025' },
         ],
       },
     ],
@@ -327,7 +343,7 @@ const copy: Record<Locale, Copy> = {
         title: '商用開発・システム設計',
         paragraphs: [
           '実運用を想定したサービス構築：適切なキャッシング、オーバーヘッドの最小化、障害発生時の安全なフォールバック設計。',
-          'APIやワーカーにはGoとPython、低レイヤーの速度やリソース制御が求められる領域にはC++やRustを活用します。',
+          'バックエンドの主力はGo。リソース制御や高速処理にはC++、応用MLや自動化にはPythonを活用します。',
         ],
       },
     ],
@@ -352,33 +368,41 @@ const copy: Record<Locale, Copy> = {
     stackCategories: [
       {
         title: 'バックエンド・コア',
-        note: '分散システムの基盤となる言語とコアロジック。',
+        note: '分散システムの基盤となる言語、コアロジック、応用ML。',
         items: [
-          { name: 'Go', role: 'Microservices & Concurrency', desc: '高スループットなREST/gRPCサービス、並行ワーカー、ストリーミング処理。', year: '2022' },
-          { name: 'Python', role: 'FastAPI & Automation', desc: '本番API、非同期マイクロサービス、診断用スクリプト、自動化ツール。', year: '2021' },
-          { name: 'C++ / Rust', role: 'Systems & Performance', desc: '厳密なメモリ制御と最小オーバーヘッドを追求するシステムコンポーネント。', year: '2023' },
-          { name: 'TypeScript', role: 'React & Interfaces', desc: '型安全な管理画面、内部ツール、WebSocketクライアントの実装。', year: '2023' },
+          { name: 'Go', role: 'Microservices & Concurrency', desc: '主力バックエンド言語：高スループットなREST/gRPCサービス、並行ワーカー、ストリーミング。', year: '2025' },
+          { name: 'C++', role: 'Systems & Performance', desc: '厳密なメモリ制御、アルゴリズムの厳格性、低オーバーヘッドなシステムプログラミング。', year: '2024' },
+          { name: 'Python', role: 'Applied ML & Automation', desc: '応用機械学習（ML）、ベクトル埋め込み、モデル連携、自動化スクリプト。', year: '2023' },
+          { name: 'TypeScript', role: 'Web & Interfaces', desc: '型安全な内部管理ツール、ダッシュボード、WebSocketクライアントの実装。', year: '2024' },
         ],
       },
       {
         title: 'データ・ストレージ',
-        note: 'データモデリング、トランザクション、キャッシュ、分散状態。',
+        note: 'データモデリング、トランザクション、キャッシュ、ベクトル検索。',
         items: [
-          { name: 'PostgreSQL', role: 'Relational & ACID', desc: '正規化スキーマ設計、トランザクション保護、インデックス最適化と負荷チューニング。', year: '2022' },
-          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'ホットデータキャッシュ、分散ロック、セッション管理、Pub/Sub。', year: '2022' },
-          { name: 'MongoDB', role: 'Document Store', desc: 'イベント駆動型アーキテクチャに適したドキュメント型コレクション。', year: '2023' },
-          { name: 'ChromaDB', role: 'Vector Search', desc: 'ベクトル埋め込みと類似性検索、セマンティック検索パイプライン。', year: '2024' },
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: '正規化スキーマ設計、トランザクション保護、インデックス最適化と負荷チューニング。', year: '2025' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'イベント駆動型パイプラインに適したドキュメント型コレクション。', year: '2025' },
+          { name: 'Redis', role: 'In-Memory Cache', desc: 'ホットデータキャッシュ、セッション管理、Pub/Subによる高速な状態共有。', year: '2026' },
+          { name: 'ChromaDB', role: 'Vector Search & ML', desc: 'ML埋め込みの保存、類似度検索、セマンティック検索パイプライン。', year: '2026' },
         ],
       },
       {
-        title: 'セキュリティ・インフラ',
-        note: '脆弱性診断、通信プロトコル、安定した本番運用。',
+        title: 'オフェンシブセキュリティ',
+        note: 'Webアプリケーション脆弱性診断、脅威モデリング、Red Team。',
         items: [
-          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Web脆弱性診断、APIファジング、脅威モデリング、認可ロジック（IDOR）の検証。', year: '2022' },
-          { name: 'Docker Compose', role: 'Containerization', desc: '環境の分離、マルチステージビルド、再現性の高い開発・本番デプロイ。', year: '2022' },
-          { name: 'Linux & Bash', role: 'System Internals', desc: '低レイヤーの診断、Shellスクリプト自動化、サーバーセキュリティ堅牢化。', year: '2021' },
-          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'リバースプロキシ、SSL/TLS終端、レートリミット、ロードバランシング。', year: '2022' },
-          { name: 'gRPC & WebSockets', role: 'Protocols', desc: '双方向リアルタイム通信とProtobufによるバイナリ通信規約。', year: '2023' },
+          { name: 'Burp Suite', role: 'Web Pentest', desc: 'Web脆弱性診断、APIファジング、脅威モデリング、認可ロジック（IDOR）の検証。', year: '2024' },
+          { name: 'Threat Modeling', role: 'Security Architecture', desc: '攻撃対象領域の分析と、ビジネスロジック層での構造的防御の設計。', year: '2024' },
+          { name: 'Network Analysis', role: 'Traffic & Protocols', desc: 'パケット解析、通信ヘッダーの監査、ネットワーク層の検証。', year: '2024' },
+        ],
+      },
+      {
+        title: 'インフラ・プロトコル',
+        note: 'コンテナ環境、ネットワーク通信規約、安定した本番運用。',
+        items: [
+          { name: 'Docker Compose', role: 'Containerization', desc: '環境の分離、マルチステージビルド、再現性の高い開発・本番デプロイ。', year: '2025' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: '低レイヤーの診断、Shellスクリプト自動化、サーバーセキュリティ堅牢化。', year: '2023' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'リバースプロキシ、SSL/TLS終端、レートリミット、ロードバランシング。', year: '2025' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: '双方向リアルタイム通信とProtobufによるバイナリ通信規約。', year: '2025' },
         ],
       },
     ],
@@ -600,7 +624,7 @@ function App() {
               <span className="terminal-prompt" aria-label="tessych">
                 <span className="terminal-prefix" aria-hidden="true">~/</span>
                 <span className="terminal-name">tessych</span>
-                <span className="terminal-cursor" aria-hidden="true">_</span>
+                <span className="terminal-cursor" aria-hidden="true">|</span>
               </span>
             </h1>
             <p className="hero-role">{text.roleLine}</p>

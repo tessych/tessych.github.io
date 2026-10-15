@@ -62,7 +62,7 @@ button { cursor: pointer; }
 .hero-salutation { display: inline-block; opacity: 0.9; }
 .terminal-prompt { display: inline-flex; align-items: baseline; }
 .terminal-prefix { color: var(--accent); font-family: var(--font-mono); font-weight: 500; margin-right: 0.04em; }
-.terminal-cursor { display: inline-block; width: 0.52ch; height: 0.88em; margin-left: 0.08ch; background: var(--accent); vertical-align: -0.05em; animation: terminal-blink 1.05s steps(2, start) infinite; }
+.terminal-cursor { display: inline-block; margin-left: 0.16ch; color: var(--accent); font-family: var(--font-mono); font-weight: 300; vertical-align: 0.02em; animation: terminal-blink 1.1s steps(2, start) infinite; }
 @keyframes terminal-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
 .hero h1, h2, h3, p { margin-top: 0; }
