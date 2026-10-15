@@ -29,6 +29,7 @@
   --line-subtle: #1c2430;
   --accent: #6f9bd4;
   --accent-ink: #070b12;
+  --portrait-bg: #151b24;
   --portrait-stamp: #f8fafc;
   --focus: #8ab4f8;
   --status-dot: #48bb78;
@@ -48,7 +49,8 @@
   --line-subtle: #ebe7dd;
   --accent: #375b82;
   --accent-ink: #fcfbf7;
-  --portrait-stamp: #16191f;
+  --portrait-bg: #f3f1e8;
+  --portrait-stamp: #8f887b;
   --focus: #1d4b73;
   --status-dot: #1b8a5a;
   --img-outline: oklch(0 0 0 / 0.1);
@@ -64,6 +66,7 @@
   --line-subtle: #211c30;
   --accent: #a698da;
   --accent-ink: #0e0b17;
+  --portrait-bg: #1c1928;
   --portrait-stamp: #f8fafc;
   --focus: #c2b6f5;
   --status-dot: #68d391;

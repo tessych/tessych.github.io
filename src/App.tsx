@@ -74,7 +74,7 @@ const copy: Record<Locale, Copy> = {
     location: 'Новосибирск',
     heroTitle: ['Привет, я', 'tessych.'],
     roleLine: 'backend-разработчик & offensive security (red team)',
-    introCopy: 'Проектирую устойчивый бэкенд и сервисы с пониманием архитектуры атак: от олимпиадных алгоритмов и API до анализа защищенности и запуска.',
+    introCopy: 'Проектирую устойчивый бэкенд и распределенные сервисы с пониманием архитектуры атак: от надежных API и баз данных до анализа защищенности и промышленной эксплуатации.',
     githubLabel: 'GitHub',
     telegramLabel: 'Telegram',
     copiedLabel: 'Скопировано!',
@@ -83,8 +83,8 @@ const copy: Record<Locale, Copy> = {
     aboutTitle: 'Люблю, когда сложное становится понятным и надежным.',
     about: [
       'Мне интересны задачи на стыке архитектуры бэкенда и информационной безопасности: понимать устройство данных, векторы атак и поведение сервиса под нагрузкой.',
-      'Опыт в Red Team и веб-пентесте научил смотреть на систему глазами атакующего: лучшие решения рождаются там, где безопасность заложена в модель сервиса с первого дня.',
-      'Олимпиадное программирование воспитало дисциплину: люблю точные алгоритмы, жесткие ограничения по ресурсам и код, который не делает ничего лишнего.',
+      'Опыт в Red Team и веб-пентесте научил смотреть на систему глазами атакующего: лучшие архитектурные решения рождаются там, где безопасность заложена в модель сервиса с первого дня.',
+      'В промышленной разработке ценю инженерную строгость и предсказуемость: ясные контракты данных, отказоустойчивость под нагрузкой и код без оверинжиниринга.',
     ],
     areasIndex: '02 / НАПРАВЛЕНИЯ',
     areasTitle: 'Чем занимаюсь',
@@ -104,10 +104,10 @@ const copy: Record<Locale, Copy> = {
         ],
       },
       {
-        title: 'Алгоритмы & Системы',
+        title: 'Промышленная разработка & Системы',
         paragraphs: [
-          'Решаю задачи, требующие математической базы, оптимальных структур данных и эффективного использования ресурсов.',
-          'Использую C++ и Rust для производительных системных компонентов; Python — для быстрой аналитики и автоматизации.',
+          'Разрабатываю сервисы с расчетом на реальную эксплуатацию: продуманное кэширование, минимизация накладных расходов и надежная обработка сбоев.',
+          'Использую Go и Python для продуктовых API и воркеров; C++ и Rust — когда критичны системная производительность и контроль над ресурсами.',
         ],
       },
     ],
@@ -123,7 +123,7 @@ const copy: Record<Locale, Copy> = {
         body: 'Покрываю критическую логику тестами, валидирую граничные случаи и изолирую внешние зависимости.',
       },
       {
-        title: 'Довести до надежного запуска',
+        title: 'Надежная эксплуатация',
         body: 'Собираю окружение в Docker Compose и настраиваю Nginx так, чтобы сервис функционировал стабильно и предсказуемо.',
       },
     ],
@@ -167,7 +167,7 @@ const copy: Record<Locale, Copy> = {
     location: 'Novosibirsk',
     heroTitle: ["Hi, I'm", 'tessych.'],
     roleLine: 'backend developer & offensive security (red team)',
-    introCopy: 'Building resilient backend services with an attacker-informed mindset: from competitive algorithms to security analysis and reliable deployment.',
+    introCopy: 'Building resilient backend services and distributed systems with an attacker-informed mindset: from robust APIs and databases to offensive security analysis and reliable production operation.',
     githubLabel: 'GitHub',
     telegramLabel: 'Telegram',
     copiedLabel: 'Copied!',
@@ -177,7 +177,7 @@ const copy: Record<Locale, Copy> = {
     about: [
       'I focus on the intersection of backend engineering and offensive security: understanding data models, attack surfaces, and system behavior under stress.',
       'My background in Red Teaming and web pentesting taught me to evaluate software from an attacker perspective: solid security begins at the design level, not as an afterthought.',
-      'Competitive programming shaped my approach: I value rigorous algorithms, tight resource constraints, and code that does no more than it needs to.',
+      'In production engineering, I value predictability and rigor: well-defined data contracts, fault tolerance under stress, and code without overengineering.',
     ],
     areasIndex: '02 / AREAS',
     areasTitle: 'What I work on',
@@ -197,10 +197,10 @@ const copy: Record<Locale, Copy> = {
         ],
       },
       {
-        title: 'Algorithms & Systems',
+        title: 'Production Engineering & Systems',
         paragraphs: [
-          'Solving engineering challenges requiring strong mathematics, algorithmic efficiency, and low resource overhead.',
-          'Leveraging C++ and Rust for high-performance systems; Python for rapid tooling, automation, and analytics.',
+          'Engineering services built for real-world operations: smart caching, low resource overhead, and graceful degradation during failures.',
+          'Leveraging Go and Python for product APIs and background workers; C++ and Rust where low-level performance and resource control are paramount.',
         ],
       },
     ],
@@ -216,7 +216,7 @@ const copy: Record<Locale, Copy> = {
         body: 'I write unit and integration tests for critical business logic, validating edge cases and isolating external failure modes.',
       },
       {
-        title: 'Ship Reliably to Production',
+        title: 'Reliable Production Operations',
         body: 'I configure Docker Compose and Nginx so services run predictably and repeatably in production environments.',
       },
     ],
@@ -260,7 +260,7 @@ const copy: Record<Locale, Copy> = {
     location: 'ノヴォシビルスク',
     heroTitle: ['はじめまして、', 'tessychです。'],
     roleLine: 'バックエンド開発者・オフェンシブセキュリティ（Red Team）',
-    introCopy: '攻撃者の視点を持って堅牢なバックエンドを設計。競技プログラミングのアルゴリズムから、脆弱性診断、本番稼働まで。',
+    introCopy: '攻撃者の視点を持って堅牢なバックエンドと分散システムを設計。信頼性の高いAPIやDB設計から、セキュリティ診断、本番環境の安定稼働まで。',
     githubLabel: 'GitHub',
     telegramLabel: 'Telegram',
     copiedLabel: 'コピー完了！',
@@ -270,7 +270,7 @@ const copy: Record<Locale, Copy> = {
     about: [
       'バックエンド設計とセキュリティの交差点にある課題に惹かれます。データ構造、攻撃対象領域、負荷時の挙動まで見据えます。',
       'Red TeamとWeb診断の経験から、攻撃者の思考でシステムを評価。真の堅牢性は、後付けではなく設計段階から組み込まれます。',
-      '競技プログラミングは私の基礎です。厳密なアルゴリズム、明確な制約、無駄のないコードを大切にしています。',
+      '商用開発において重視するのは予測可能性と技術的規律です。明確なデータ規約、高負荷時の耐障害性、過剰設計のない堅実なコードを追求します。',
     ],
     areasIndex: '02 / 領域',
     areasTitle: '取り組んでいること',
@@ -290,10 +290,10 @@ const copy: Record<Locale, Copy> = {
         ],
       },
       {
-        title: 'アルゴリズム・システム',
+        title: '商用開発・システム設計',
         paragraphs: [
-          '数学的思考と高効率なアルゴリズムが求められるシステム課題に対応。',
-          '速度とリソース効率が重要な領域にはC++やRustを選択し、自動化や分析にはPythonを活用します。',
+          '実運用を想定したサービス構築：適切なキャッシング、オーバーヘッドの最小化、障害発生時の安全なフォールバック設計。',
+          'APIやワーカーにはGoとPython、低レイヤーの速度やリソース制御が求められる領域にはC++やRustを活用します。',
         ],
       },
     ],
@@ -342,12 +342,7 @@ const copy: Record<Locale, Copy> = {
   },
 };
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.09, delayChildren: 0.08 } },
-};
-
-const itemVariants: Variants = {
+const sectionVariants: Variants = {
   hidden: { opacity: 0, y: 16 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.2, 0, 0, 1] } },
 };
@@ -527,13 +522,17 @@ function App() {
           transition={{ duration: 0.45, ease: [0.2, 0, 0, 1] }}
         >
           <div className="hero-copy">
-            <div className="hero-status-pill">
-              <span className="status-dot" aria-hidden="true" />
-              <span className="hero-location-text">
-                <MapPin aria-hidden="true" size={13} /> {text.location}
+            <div className="hero-meta-bar" aria-label={`${text.location} local time`}>
+              <span className="meta-status">
+                <span className="status-dot" aria-hidden="true" />
+                <span className="status-tag">NSK</span>
               </span>
-              <span className="status-divider" aria-hidden="true">·</span>
-              <time className="hero-time" aria-label={`${text.location} local time`}>
+              <span className="meta-sep" aria-hidden="true">/</span>
+              <span className="meta-item meta-location">
+                <MapPin aria-hidden="true" size={12} /> {text.location}
+              </span>
+              <span className="meta-sep" aria-hidden="true">/</span>
+              <time className="meta-item meta-time">
                 {novosibirskTime ? `${novosibirskTime} UTC+7` : 'UTC+7'}
               </time>
             </div>
@@ -626,42 +625,42 @@ function App() {
         <motion.section
           className="about-section"
           id="about"
-          variants={containerVariants}
-          initial="hidden"
+          variants={sectionVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
-          <motion.div className="section-label" variants={itemVariants}>
+          <div className="section-label">
             {text.aboutIndex}
-          </motion.div>
-          <motion.div className="about-body" variants={itemVariants}>
+          </div>
+          <div className="about-body">
             <h2>{text.aboutTitle}</h2>
             <div>
-              {text.about.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
+              {text.about.map((paragraph, index) => (
+                <p key={index}>{paragraph}</p>
               ))}
             </div>
-          </motion.div>
+          </div>
         </motion.section>
 
         <motion.section
           className="areas-section"
-          variants={containerVariants}
-          initial="hidden"
+          variants={sectionVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
-          <motion.div className="section-heading" variants={itemVariants}>
+          <div className="section-heading">
             <span className="section-label">{text.areasIndex}</span>
             <h2>{text.areasTitle}</h2>
-          </motion.div>
+          </div>
           <div className="areas-list">
-            {text.areas.map((area) => (
-              <motion.article className="area-item" key={area.title} variants={itemVariants}>
+            {text.areas.map((area, index) => (
+              <article className="area-item" key={index}>
                 <h3>{area.title}</h3>
                 <p>{area.paragraphs[0]}</p>
                 <p>{area.paragraphs[1]}</p>
-              </motion.article>
+              </article>
             ))}
           </div>
         </motion.section>
@@ -669,24 +668,24 @@ function App() {
         <motion.section
           className="focus-section"
           id="approach"
-          variants={containerVariants}
-          initial="hidden"
+          variants={sectionVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
-          <motion.div className="section-heading" variants={itemVariants}>
+          <div className="section-heading">
             <span className="section-label">{text.focusIndex}</span>
             <h2>{text.focusTitle}</h2>
-          </motion.div>
+          </div>
           <ol className="focus-list">
             {text.focus.map((item, index) => (
-              <motion.li key={item.title} variants={itemVariants}>
+              <li key={index}>
                 <span>{String(index + 1).padStart(2, '0')}</span>
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.body}</p>
                 </div>
-              </motion.li>
+              </li>
             ))}
           </ol>
         </motion.section>
@@ -694,18 +693,18 @@ function App() {
         <motion.section
           className="stack-section"
           id="stack"
-          variants={containerVariants}
-          initial="hidden"
+          variants={sectionVariants}
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.15 }}
         >
-          <motion.div className="section-heading" variants={itemVariants}>
+          <div className="section-heading">
             <span className="section-label">{text.stackIndex}</span>
             <h2>{text.stackTitle}</h2>
-          </motion.div>
+          </div>
           <div className="stack-list">
-            {text.stackGroups.map((group) => (
-              <motion.article className="stack-group" key={group.title} variants={itemVariants}>
+            {text.stackGroups.map((group, index) => (
+              <article className="stack-group" key={index}>
                 <div>
                   <h3>{group.title}</h3>
                   <p>{group.note}</p>
@@ -717,7 +716,7 @@ function App() {
                     </span>
                   ))}
                 </div>
-              </motion.article>
+              </article>
             ))}
           </div>
         </motion.section>
@@ -726,47 +725,51 @@ function App() {
       <motion.footer
         className="contact-section"
         id="contact"
-        initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.45, ease: [0.2, 0, 0, 1] }}
+        variants={sectionVariants}
+        initial={shouldReduceMotion ? false : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
       >
         <span className="section-label">{text.linksIndex}</span>
-        <h2>{text.linksTitle}</h2>
-        <p>{text.linksCopy}</p>
-        <div className="contact-actions">
-          <a
-            href="https://t.me/tessychlove"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-link contact-link--telegram"
-            aria-label="Telegram @tessychlove"
-          >
-            <Send aria-hidden="true" size={17} /> Telegram (@tessychlove){' '}
-            <ArrowUpRight aria-hidden="true" size={17} />
-          </a>
-          <button
-            type="button"
-            className="contact-link contact-copy-button"
-            onClick={handleCopyTelegram}
-            aria-label={text.copyTgLabel}
-            title={text.copyTgLabel}
-          >
-            {isCopied ? <Check aria-hidden="true" size={17} /> : <CopyIcon aria-hidden="true" size={17} />}
-            <span>{isCopied ? text.copiedLabel : '@tessychlove'}</span>
-            <span className="visually-hidden" aria-live="polite">
-              {isCopied ? text.copiedLabel : ''}
-            </span>
-          </button>
-          <a
-            href="https://github.com/tessych"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="contact-link"
-            aria-label={text.projectLink}
-          >
-            <Code2 aria-hidden="true" size={17} /> GitHub <ArrowUpRight aria-hidden="true" size={17} />
-          </a>
+        <div className="contact-content">
+          <div className="contact-intro">
+            <h2>{text.linksTitle}</h2>
+            <p>{text.linksCopy}</p>
+          </div>
+          <div className="contact-actions">
+            <a
+              href="https://t.me/tessychlove"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link contact-link--telegram"
+              aria-label="Telegram @tessychlove"
+            >
+              <Send aria-hidden="true" size={17} /> Telegram (@tessychlove){' '}
+              <ArrowUpRight aria-hidden="true" size={17} />
+            </a>
+            <button
+              type="button"
+              className="contact-link contact-copy-button"
+              onClick={handleCopyTelegram}
+              aria-label={text.copyTgLabel}
+              title={text.copyTgLabel}
+            >
+              {isCopied ? <Check aria-hidden="true" size={17} /> : <CopyIcon aria-hidden="true" size={17} />}
+              <span>{isCopied ? text.copiedLabel : '@tessychlove'}</span>
+              <span className="visually-hidden" aria-live="polite">
+                {isCopied ? text.copiedLabel : ''}
+              </span>
+            </button>
+            <a
+              href="https://github.com/tessych"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link"
+              aria-label={text.projectLink}
+            >
+              <Code2 aria-hidden="true" size={17} /> GitHub <ArrowUpRight aria-hidden="true" size={17} />
+            </a>
+          </div>
         </div>
       </motion.footer>
     </div>
