@@ -7,6 +7,7 @@ const themes = [
   { id: 'aoi', label: 'Индиго' },
   { id: 'kumo', label: 'Облако' },
   { id: 'yozora', label: 'Сумерки' },
+  { id: 'kurosawa', label: 'Куросава' },
 ] as const;
 
 const locales = [
@@ -19,7 +20,8 @@ type ThemeId = (typeof themes)[number]['id'];
 type Locale = (typeof locales)[number]['id'];
 type FocusItem = { title: string; body: string };
 type AreaItem = { title: string; paragraphs: [string, string] };
-type StackGroup = { title: string; note: string; tags: string[] };
+type StackItem = { name: string; role: string; desc: string; year: string };
+type StackCategory = { title: string; note: string; items: StackItem[] };
 
 type Copy = {
   documentLang: string;
@@ -50,7 +52,7 @@ type Copy = {
   focus: [FocusItem, FocusItem, FocusItem];
   stackIndex: string;
   stackTitle: string;
-  stackGroups: [StackGroup, StackGroup, StackGroup];
+  stackCategories: [StackCategory, StackCategory, StackCategory];
   linksIndex: string;
   linksTitle: string;
   linksCopy: string;
@@ -68,7 +70,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych, в начало страницы',
     themeLabel: 'Варианты оформления',
     languageLabel: 'Язык',
-    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' },
+    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora', kurosawa: 'Kurosawa' },
     sectionsLabel: 'Разделы сайта',
     nav: ['Обо мне', 'В работе', 'Стек', 'Контакты'],
     location: 'Новосибирск',
@@ -129,21 +131,37 @@ const copy: Record<Locale, Copy> = {
     ],
     stackIndex: '04 / ИНСТРУМЕНТЫ',
     stackTitle: 'То, чем пользуюсь в работе',
-    stackGroups: [
+    stackCategories: [
       {
-        title: 'Языки & Среда',
-        note: 'Инструменты разработки и системной логики.',
-        tags: ['Go', 'Python', 'C++', 'Rust', 'TypeScript', 'React'],
+        title: 'Backend & Core',
+        note: 'Языки и системная логика распределенных сервисов.',
+        items: [
+          { name: 'Go', role: 'Microservices & Concurrency', desc: 'Высоконагруженные REST и gRPC сервисы, конкурентные воркеры и потоковая обработка.', year: '2022' },
+          { name: 'Python', role: 'FastAPI & Automation', desc: 'Продуктовые API, асинхронные микросервисы, скрипты анализа и внутренний тулинг.', year: '2021' },
+          { name: 'C++ / Rust', role: 'Systems & Performance', desc: 'Системные компоненты с прямым контролем памяти и минимальным накладным расходом.', year: '2023' },
+          { name: 'TypeScript', role: 'React & Interfaces', desc: 'Типизированные клиентские панели, дашборды и интеграция WebSocket API.', year: '2023' },
+        ],
       },
       {
-        title: 'Данные & Поиск',
-        note: 'Хранилища, кэширование и работа с данными.',
-        tags: ['PostgreSQL', 'Redis', 'MongoDB', 'ChromaDB'],
+        title: 'Data & Storage',
+        note: 'Модели данных, транзакции, кэширование и распределенное состояние.',
+        items: [
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Проектирование схем, транзакции, индексы и оптимизация сложных запросов под нагрузкой.', year: '2022' },
+          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'Кэширование горячих данных, распределенные блокировки и очереди сообщений.', year: '2022' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'Документоориентированные коллекции и гибкие структуры для событийных данных.', year: '2023' },
+          { name: 'ChromaDB', role: 'Vector Search', desc: 'Векторные эмбеддинги, семантический поиск и интеграция с языковыми моделями.', year: '2024' },
+        ],
       },
       {
-        title: 'Инфраструктура & Безопасность',
-        note: 'Контейнеризация, сетевые протоколы и инструментарий анализа.',
-        tags: ['Docker Compose', 'Linux', 'Nginx', 'REST API', 'gRPC', 'WebSockets', 'Burp Suite'],
+        title: 'Security & Infra',
+        note: 'Анализ защищенности, сетевые протоколы и эксплуатация.',
+        items: [
+          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Анализ защищенности веб-приложений, фаззинг API, выявление логических уязвимостей и IDOR.', year: '2022' },
+          { name: 'Docker Compose', role: 'Containerization', desc: 'Изоляция окружений, мультистейдж сборка и воспроизводимое развертывание сервисов.', year: '2022' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: 'Низкоуровневая диагностика, скриптинг, аудит процессов и harden-настройка окружения.', year: '2021' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Маршрутизация запросов, SSL/TLS терминация, балансировка и защита от спама.', year: '2022' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Двунаправленный real-time стриминг и бинарные контракты Protobuf.', year: '2023' },
+        ],
       },
     ],
     linksIndex: '05 / СВЯЗЬ',
@@ -161,7 +179,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych, back to top',
     themeLabel: 'Visual themes',
     languageLabel: 'Language',
-    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora' },
+    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora', kurosawa: 'Kurosawa' },
     sectionsLabel: 'Site sections',
     nav: ['About', 'Approach', 'Stack', 'Contact'],
     location: 'Novosibirsk',
@@ -222,21 +240,37 @@ const copy: Record<Locale, Copy> = {
     ],
     stackIndex: '04 / TOOLKIT',
     stackTitle: 'What I reach for every day',
-    stackGroups: [
+    stackCategories: [
       {
-        title: 'Languages & Core',
-        note: 'Languages and libraries for primary services and logic.',
-        tags: ['Go', 'Python', 'C++', 'Rust', 'TypeScript', 'React'],
+        title: 'Backend & Core',
+        note: 'Languages and core logic for distributed backend systems.',
+        items: [
+          { name: 'Go', role: 'Microservices & Concurrency', desc: 'High-throughput REST and gRPC services, concurrent workers, and streaming pipelines.', year: '2022' },
+          { name: 'Python', role: 'FastAPI & Automation', desc: 'Production APIs, async microservices, security automation scripts, and tooling.', year: '2021' },
+          { name: 'C++ / Rust', role: 'Systems & Performance', desc: 'Low-level system components with direct memory control and minimal overhead.', year: '2023' },
+          { name: 'TypeScript', role: 'React & Interfaces', desc: 'Strictly typed interfaces, internal management panels, and WebSocket clients.', year: '2023' },
+        ],
       },
       {
         title: 'Data & Storage',
-        note: 'Databases, caching layers, and search engines.',
-        tags: ['PostgreSQL', 'Redis', 'MongoDB', 'ChromaDB'],
+        note: 'Data modeling, transaction safety, caching, and state management.',
+        items: [
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: 'Schema architecture, transactional integrity, index optimization, and high-load tuning.', year: '2022' },
+          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'Hot-data caching, distributed locks, session persistence, and message brokering.', year: '2022' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'Document collections and schema patterns for flexible, event-driven pipelines.', year: '2023' },
+          { name: 'ChromaDB', role: 'Vector Search', desc: 'Vector embeddings, similarity lookup, and semantic search pipelines.', year: '2024' },
+        ],
       },
       {
-        title: 'Infrastructure & Security',
-        note: 'Containerization, networking protocols, and analysis tools.',
-        tags: ['Docker Compose', 'Linux', 'Nginx', 'REST API', 'gRPC', 'WebSockets', 'Burp Suite'],
+        title: 'Security & Infra',
+        note: 'Security assessment, networking protocols, and reliable operations.',
+        items: [
+          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Web pentesting, API fuzzing, threat modeling, and uncovering architectural flaws.', year: '2022' },
+          { name: 'Docker Compose', role: 'Containerization', desc: 'Service isolation, multi-stage container builds, and reproducible staging environments.', year: '2022' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: 'OS-level debugging, shell scripting, audit logging, and server hardening.', year: '2021' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'Traffic routing, SSL/TLS termination, rate limiting, and reverse proxy security.', year: '2022' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: 'Bidirectional real-time streaming and binary Protobuf contracts.', year: '2023' },
+        ],
       },
     ],
     linksIndex: '05 / CONTACT',
@@ -254,7 +288,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych、ページの先頭へ',
     themeLabel: 'テーマ',
     languageLabel: '言語',
-    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空' },
+    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空', kurosawa: '黒澤' },
     sectionsLabel: 'サイトのセクション',
     nav: ['自己紹介', '仕事の進め方', '技術', '連絡'],
     location: 'ノヴォシビルスク',
@@ -315,21 +349,37 @@ const copy: Record<Locale, Copy> = {
     ],
     stackIndex: '04 / 技術',
     stackTitle: '日常的に活用する技術',
-    stackGroups: [
+    stackCategories: [
       {
-        title: '言語・コア',
-        note: '主要なサービス開発とシステムロジック。',
-        tags: ['Go', 'Python', 'C++', 'Rust', 'TypeScript', 'React'],
+        title: 'バックエンド・コア',
+        note: '分散システムの基盤となる言語とコアロジック。',
+        items: [
+          { name: 'Go', role: 'Microservices & Concurrency', desc: '高スループットなREST/gRPCサービス、並行ワーカー、ストリーミング処理。', year: '2022' },
+          { name: 'Python', role: 'FastAPI & Automation', desc: '本番API、非同期マイクロサービス、診断用スクリプト、自動化ツール。', year: '2021' },
+          { name: 'C++ / Rust', role: 'Systems & Performance', desc: '厳密なメモリ制御と最小オーバーヘッドを追求するシステムコンポーネント。', year: '2023' },
+          { name: 'TypeScript', role: 'React & Interfaces', desc: '型安全な管理画面、内部ツール、WebSocketクライアントの実装。', year: '2023' },
+        ],
       },
       {
-        title: 'データ・検索',
-        note: 'データベース、キャッシュ、ベクトル検索。',
-        tags: ['PostgreSQL', 'Redis', 'MongoDB', 'ChromaDB'],
+        title: 'データ・ストレージ',
+        note: 'データモデリング、トランザクション、キャッシュ、分散状態。',
+        items: [
+          { name: 'PostgreSQL', role: 'Relational & ACID', desc: '正規化スキーマ設計、トランザクション保護、インデックス最適化と負荷チューニング。', year: '2022' },
+          { name: 'Redis', role: 'In-Memory & Pub/Sub', desc: 'ホットデータキャッシュ、分散ロック、セッション管理、Pub/Sub。', year: '2022' },
+          { name: 'MongoDB', role: 'Document Store', desc: 'イベント駆動型アーキテクチャに適したドキュメント型コレクション。', year: '2023' },
+          { name: 'ChromaDB', role: 'Vector Search', desc: 'ベクトル埋め込みと類似性検索、セマンティック検索パイプライン。', year: '2024' },
+        ],
       },
       {
-        title: 'インフラ・セキュリティ',
-        note: 'コンテナ環境、ネットワークプロトコル、解析ツール。',
-        tags: ['Docker Compose', 'Linux', 'Nginx', 'REST API', 'gRPC', 'WebSockets', 'Burp Suite'],
+        title: 'セキュリティ・インフラ',
+        note: '脆弱性診断、通信プロトコル、安定した本番運用。',
+        items: [
+          { name: 'Burp Suite', role: 'Offensive Security', desc: 'Web脆弱性診断、APIファジング、脅威モデリング、認可ロジック（IDOR）の検証。', year: '2022' },
+          { name: 'Docker Compose', role: 'Containerization', desc: '環境の分離、マルチステージビルド、再現性の高い開発・本番デプロイ。', year: '2022' },
+          { name: 'Linux & Bash', role: 'System Internals', desc: '低レイヤーの診断、Shellスクリプト自動化、サーバーセキュリティ堅牢化。', year: '2021' },
+          { name: 'Nginx', role: 'Reverse Proxy & Edge', desc: 'リバースプロキシ、SSL/TLS終端、レートリミット、ロードバランシング。', year: '2022' },
+          { name: 'gRPC & WebSockets', role: 'Protocols', desc: '双方向リアルタイム通信とProtobufによるバイナリ通信規約。', year: '2023' },
+        ],
       },
     ],
     linksIndex: '05 / 連絡',
@@ -351,12 +401,14 @@ function App() {
   const [theme, setTheme] = useState<ThemeId>(() => {
     try {
       const saved = localStorage.getItem('tessych-theme') as ThemeId | null;
-      if (saved && (saved === 'aoi' || saved === 'kumo' || saved === 'yozora')) return saved;
+      if (saved && (saved === 'aoi' || saved === 'kumo' || saved === 'yozora' || saved === 'kurosawa')) return saved;
     } catch {
       // ignore
     }
     return 'aoi';
   });
+
+  const [activeStackCategory, setActiveStackCategory] = useState(0);
 
   const [locale, setLocale] = useState<Locale>(() => {
     try {
@@ -536,10 +588,20 @@ function App() {
                 {novosibirskTime ? `${novosibirskTime} UTC+7` : 'UTC+7'}
               </time>
             </div>
+            <div className="hero-mech-tag" aria-hidden="true">
+              <span className="mech-indicator" />
+              <span>SYS_INIT // RED_TEAM_NODE_01</span>
+              <span className="mech-divider">/</span>
+              <span className="mech-jp">システム稼働中</span>
+            </div>
             <h1>
-              {text.heroTitle[0]}
+              <span className="hero-greeting">{text.heroTitle[0]}</span>
               <br />
-              {text.heroTitle[1]}
+              <span className="terminal-prompt" aria-label="tessych">
+                <span className="terminal-prefix" aria-hidden="true">~/</span>
+                <span className="terminal-name">tessych</span>
+                <span className="terminal-cursor" aria-hidden="true">_</span>
+              </span>
             </h1>
             <p className="hero-role">{text.roleLine}</p>
             <p className="hero-intro">{text.introCopy}</p>
@@ -596,6 +658,10 @@ function App() {
             >
               <img src="/image.jpg" alt="tessych portrait" />
               <div className="portrait-scanline" aria-hidden="true" />
+              <span className="mech-bracket top-left" aria-hidden="true" />
+              <span className="mech-bracket top-right" aria-hidden="true" />
+              <span className="mech-bracket bottom-left" aria-hidden="true" />
+              <span className="mech-bracket bottom-right" aria-hidden="true" />
               <button
                 aria-controls="easter-quote"
                 aria-expanded={isQuoteOpen}
@@ -702,22 +768,43 @@ function App() {
             <span className="section-label">{text.stackIndex}</span>
             <h2>{text.stackTitle}</h2>
           </div>
-          <div className="stack-list">
-            {text.stackGroups.map((group, index) => (
-              <article className="stack-group" key={index}>
-                <div>
-                  <h3>{group.title}</h3>
-                  <p>{group.note}</p>
-                </div>
-                <div className="stack-tags">
-                  {group.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
+          <div className="aweny-stack-grid">
+            <div className="stack-tabs" role="tablist" aria-label={text.stackTitle}>
+              {text.stackCategories.map((cat, idx) => (
+                <button
+                  type="button"
+                  role="tab"
+                  key={idx}
+                  aria-selected={activeStackCategory === idx}
+                  className={`stack-tab-btn ${activeStackCategory === idx ? 'is-active' : ''}`}
+                  onClick={() => setActiveStackCategory(idx)}
+                >
+                  <span className="stack-tab-head">
+                    <span className="stack-tab-line" aria-hidden="true" />
+                    <span className="stack-tab-title">{cat.title}</span>
+                  </span>
+                  <span className="stack-tab-note">{cat.note}</span>
+                </button>
+              ))}
+            </div>
+            <div className="stack-items-container" role="tabpanel">
+              <ul className="stack-items-list">
+                {text.stackCategories[activeStackCategory]?.items.map((item, index) => (
+                  <li className="stack-item-row" key={`${activeStackCategory}-${index}`}>
+                    <div className="stack-item-info">
+                      <div className="stack-item-header">
+                        <span className="stack-item-name">{item.name}</span>
+                        <span className="stack-item-role">{item.role}</span>
+                      </div>
+                      <p className="stack-item-desc">{item.desc}</p>
+                    </div>
+                    <span className="stack-item-year" aria-label={`Experience since ${item.year}`}>
+                      {item.year}
                     </span>
-                  ))}
-                </div>
-              </article>
-            ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </motion.section>
       </main>

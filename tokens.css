@@ -37,6 +37,7 @@
   --swatch-aoi: #6f9bd4;
   --swatch-kumo: #4f6f92;
   --swatch-yozora: #a698da;
+  --swatch-kurosawa: #f5f2e9;
 }
 
 .app-shell[data-theme="kumo"] {
@@ -71,4 +72,21 @@
   --focus: #c2b6f5;
   --status-dot: #68d391;
   --img-outline: oklch(1 0 0 / 0.12);
+}
+
+.app-shell[data-theme="kurosawa"] {
+  /* Kurosawa (Cinematic Milk & Black Monochrome - 黒澤) */
+  --paper: #0a0a0c;
+  --paper-raised: #141418;
+  --ink: #f5f2e9;
+  --ink-muted: #9c988f;
+  --line: #2a2a30;
+  --line-subtle: #1c1c22;
+  --accent: #f5f2e9;
+  --accent-ink: #0a0a0c;
+  --portrait-bg: #141418;
+  --portrait-stamp: #e53e3e;
+  --focus: #f5f2e9;
+  --status-dot: #e53e3e;
+  --img-outline: oklch(1 0 0 / 0.15);
 }
