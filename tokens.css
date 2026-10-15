@@ -20,24 +20,39 @@
 }
 
 .app-shell {
-  /* Default Theme: Aoi (Indigo Night) */
-  --paper: #0d1117;
-  --paper-raised: #151b24;
-  --ink: #edf2f7;
-  --ink-muted: #94a1b2;
-  --line: #273142;
-  --line-subtle: #1c2430;
-  --accent: #6f9bd4;
-  --accent-ink: #070b12;
-  --portrait-bg: #151b24;
-  --portrait-stamp: #f8fafc;
-  --focus: #8ab4f8;
-  --status-dot: #48bb78;
-  --img-outline: oklch(1 0 0 / 0.12);
-  --swatch-aoi: #6f9bd4;
-  --swatch-kumo: #4f6f92;
-  --swatch-yozora: #a698da;
-  --swatch-kurosawa: #f5f2e9;
+  /* Default Theme: Kurosawa (Cinematic Noir & Milk Monochrome - 黒澤) */
+  --paper: #0a0a0c;
+  --paper-raised: #141418;
+  --ink: #f5f2e9;
+  --ink-muted: #9c988f;
+  --line: #2a2a30;
+  --line-subtle: #1c1c22;
+  --accent: #f5f2e9;
+  --accent-ink: #0a0a0c;
+  --portrait-bg: #141418;
+  --portrait-stamp: #e53e3e;
+  --focus: #f5f2e9;
+  --status-dot: #e53e3e;
+  --img-outline: oklch(1 0 0 / 0.1);
+  --swatch-kurosawa: #0a0a0c;
+  --swatch-kumo: #375b82;
+}
+
+.app-shell[data-theme="kurosawa"] {
+  /* Kurosawa (Cinematic Milk & Black Monochrome - 黒澤) */
+  --paper: #0a0a0c;
+  --paper-raised: #141418;
+  --ink: #f5f2e9;
+  --ink-muted: #9c988f;
+  --line: #2a2a30;
+  --line-subtle: #1c1c22;
+  --accent: #f5f2e9;
+  --accent-ink: #0a0a0c;
+  --portrait-bg: #141418;
+  --portrait-stamp: #e53e3e;
+  --focus: #f5f2e9;
+  --status-dot: #e53e3e;
+  --img-outline: oklch(1 0 0 / 0.1);
 }
 
 .app-shell[data-theme="kumo"] {
@@ -55,38 +70,4 @@
   --focus: #1d4b73;
   --status-dot: #1b8a5a;
   --img-outline: oklch(0 0 0 / 0.1);
-}
-
-.app-shell[data-theme="yozora"] {
-  /* Yozora (Deep Twilight Purple) */
-  --paper: #12101a;
-  --paper-raised: #1c1928;
-  --ink: #f2f0f8;
-  --ink-muted: #a39cb6;
-  --line: #2e2942;
-  --line-subtle: #211c30;
-  --accent: #a698da;
-  --accent-ink: #0e0b17;
-  --portrait-bg: #1c1928;
-  --portrait-stamp: #f8fafc;
-  --focus: #c2b6f5;
-  --status-dot: #68d391;
-  --img-outline: oklch(1 0 0 / 0.12);
-}
-
-.app-shell[data-theme="kurosawa"] {
-  /* Kurosawa (Cinematic Milk & Black Monochrome - 黒澤) */
-  --paper: #0a0a0c;
-  --paper-raised: #141418;
-  --ink: #f5f2e9;
-  --ink-muted: #9c988f;
-  --line: #2a2a30;
-  --line-subtle: #1c1c22;
-  --accent: #f5f2e9;
-  --accent-ink: #0a0a0c;
-  --portrait-bg: #141418;
-  --portrait-stamp: #e53e3e;
-  --focus: #f5f2e9;
-  --status-dot: #e53e3e;
-  --img-outline: oklch(1 0 0 / 0.15);
 }

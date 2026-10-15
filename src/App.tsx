@@ -4,10 +4,8 @@ import type { Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 const themes = [
-  { id: 'aoi', label: 'Индиго' },
-  { id: 'kumo', label: 'Облако' },
-  { id: 'yozora', label: 'Сумерки' },
   { id: 'kurosawa', label: 'Куросава' },
+  { id: 'kumo', label: 'Облако' },
 ] as const;
 
 const locales = [
@@ -70,7 +68,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych, в начало страницы',
     themeLabel: 'Варианты оформления',
     languageLabel: 'Язык',
-    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora', kurosawa: 'Kurosawa' },
+    themeNames: { kurosawa: 'Kurosawa', kumo: 'Kumo' },
     sectionsLabel: 'Разделы сайта',
     nav: ['Обо мне', 'В работе', 'Стек', 'Контакты'],
     location: 'Новосибирск',
@@ -187,7 +185,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych, back to top',
     themeLabel: 'Visual themes',
     languageLabel: 'Language',
-    themeNames: { aoi: 'Aoi', kumo: 'Kumo', yozora: 'Yozora', kurosawa: 'Kurosawa' },
+    themeNames: { kurosawa: 'Kurosawa', kumo: 'Kumo' },
     sectionsLabel: 'Site sections',
     nav: ['About', 'Approach', 'Stack', 'Contact'],
     location: 'Novosibirsk',
@@ -304,7 +302,7 @@ const copy: Record<Locale, Copy> = {
     home: 'tessych、ページの先頭へ',
     themeLabel: 'テーマ',
     languageLabel: '言語',
-    themeNames: { aoi: '藍', kumo: '雲', yozora: '夜空', kurosawa: '黒澤' },
+    themeNames: { kurosawa: '黒澤', kumo: '雲' },
     sectionsLabel: 'サイトのセクション',
     nav: ['自己紹介', '仕事の進め方', '技術', '連絡'],
     location: 'ノヴォシビルスク',
@@ -425,11 +423,11 @@ function App() {
   const [theme, setTheme] = useState<ThemeId>(() => {
     try {
       const saved = localStorage.getItem('tessych-theme') as ThemeId | null;
-      if (saved && (saved === 'aoi' || saved === 'kumo' || saved === 'yozora' || saved === 'kurosawa')) return saved;
+      if (saved && (saved === 'kurosawa' || saved === 'kumo')) return saved;
     } catch {
       // ignore
     }
-    return 'aoi';
+    return 'kurosawa';
   });
 
   const [activeStackCategory, setActiveStackCategory] = useState(0);
@@ -624,7 +622,7 @@ function App() {
               <span className="terminal-prompt" aria-label="tessych">
                 <span className="terminal-prefix" aria-hidden="true">~/</span>
                 <span className="terminal-name">tessych</span>
-                <span className="terminal-cursor" aria-hidden="true">|</span>
+                <span className="terminal-cursor" aria-hidden="true" />
               </span>
             </h1>
             <p className="hero-role">{text.roleLine}</p>
