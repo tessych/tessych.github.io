@@ -59,7 +59,6 @@ type Copy = {
   contactTelegramAction: string;
   contactGithubTag: string;
   contactGithubAction: string;
-  contactStatus: string;
   quote: string;
   showQuote: string;
   hideQuote: string;
@@ -207,7 +206,6 @@ const copy: Record<Locale, Copy> = {
     contactTelegramAction: 'Написать',
     contactGithubTag: 'ОТКРЫТЫЙ КОД & РЕПОЗИТОРИИ',
     contactGithubAction: 'Открыть профиль',
-    contactStatus: 'Новосибирск • UTC+7 • Открыт к обсуждению проектов',
     quote: 'Противник не сможет узнать твой следующий ход, если ты и сам его не знаешь.',
     showQuote: 'Показать цитату',
     hideQuote: 'Скрыть цитату',
@@ -353,7 +351,6 @@ const copy: Record<Locale, Copy> = {
     contactTelegramAction: 'Open Chat',
     contactGithubTag: 'OPEN SOURCE & CODE',
     contactGithubAction: 'View Profile',
-    contactStatus: 'Novosibirsk • UTC+7 • Available for projects & discussions',
     quote: 'Your opponent cannot know your next move if you do not know it yourself.',
     showQuote: 'Show quote',
     hideQuote: 'Hide quote',
@@ -499,7 +496,6 @@ const copy: Record<Locale, Copy> = {
     contactTelegramAction: 'メッセージを送る',
     contactGithubTag: 'オープンソース・コード',
     contactGithubAction: 'プロフィールを見る',
-    contactStatus: 'ノヴォシビルスク • UTC+7 • プロジェクトのご相談歓迎',
     quote: '男の子であることは性別の問題。男であることは時間の問題。クズであることは、もはや問題ですらない。',
     showQuote: '引用を表示',
     hideQuote: '引用を閉じる',
@@ -955,10 +951,6 @@ function App() {
           <div className="contact-hub-intro">
             <h2>{text.linksTitle}</h2>
             <p className="contact-hub-copy">{text.linksCopy}</p>
-            <div className="contact-status-chip">
-              <span className="status-dot" aria-hidden="true" />
-              <span>{text.contactStatus}</span>
-            </div>
           </div>
           <div className="contact-channels-grid">
             <div className="contact-channel-card">
