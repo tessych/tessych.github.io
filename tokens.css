@@ -1,5 +1,5 @@
 :root {
-  --canvas: #131821;
+  --canvas: #0d1117;
   --font-display: "Noto Sans JP", "Inter", sans-serif;
   --font-body: "Inter", "Noto Sans JP", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -20,40 +20,52 @@
 }
 
 .app-shell {
-  --paper: #131821;
-  --paper-raised: #1b222e;
-  --ink: #eef0ef;
-  --ink-muted: #abb4c1;
-  --line: #3c4858;
-  --accent: #7798c7;
-  --accent-ink: #10151d;
-  --portrait-stamp: #f9f8f5;
-  --focus: #c8d8ff;
-  --swatch-aoi: #7798c7;
-  --swatch-kumo: #506b8a;
-  --swatch-yozora: #9b91c3;
+  /* Default Theme: Aoi (Indigo Night) */
+  --paper: #0d1117;
+  --paper-raised: #151b24;
+  --ink: #edf2f7;
+  --ink-muted: #94a1b2;
+  --line: #273142;
+  --line-subtle: #1c2430;
+  --accent: #6f9bd4;
+  --accent-ink: #070b12;
+  --portrait-stamp: #f8fafc;
+  --focus: #8ab4f8;
+  --status-dot: #48bb78;
+  --img-outline: oklch(1 0 0 / 0.12);
+  --swatch-aoi: #6f9bd4;
+  --swatch-kumo: #4f6f92;
+  --swatch-yozora: #a698da;
 }
 
 .app-shell[data-theme="kumo"] {
-  --paper: #eeece7;
-  --paper-raised: #f7f5f1;
-  --ink: #252a32;
-  --ink-muted: #666d76;
-  --line: #b8bdc2;
-  --accent: #506b8a;
-  --accent-ink: #f9f8f5;
-  --portrait-stamp: #f9f8f5;
-  --focus: #244f78;
+  /* Kumo (Warm Editorial Paper - inspired by Aweny) */
+  --paper: #fcfbf7;
+  --paper-raised: #f3f1e8;
+  --ink: #16191f;
+  --ink-muted: #596172;
+  --line: #dcd8cd;
+  --line-subtle: #ebe7dd;
+  --accent: #375b82;
+  --accent-ink: #fcfbf7;
+  --portrait-stamp: #16191f;
+  --focus: #1d4b73;
+  --status-dot: #1b8a5a;
+  --img-outline: oklch(0 0 0 / 0.1);
 }
 
 .app-shell[data-theme="yozora"] {
-  --paper: #181723;
-  --paper-raised: #242331;
-  --ink: #f0eff3;
-  --ink-muted: #b7b2c0;
-  --line: #4a4657;
-  --accent: #9b91c3;
-  --accent-ink: #17151e;
-  --portrait-stamp: #f9f8f5;
-  --focus: #d5ccff;
+  /* Yozora (Deep Twilight Purple) */
+  --paper: #12101a;
+  --paper-raised: #1c1928;
+  --ink: #f2f0f8;
+  --ink-muted: #a39cb6;
+  --line: #2e2942;
+  --line-subtle: #211c30;
+  --accent: #a698da;
+  --accent-ink: #0e0b17;
+  --portrait-stamp: #f8fafc;
+  --focus: #c2b6f5;
+  --status-dot: #68d391;
+  --img-outline: oklch(1 0 0 / 0.12);
 }
