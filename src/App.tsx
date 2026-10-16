@@ -1,8 +1,7 @@
-import { ArrowUpRight, Check, Code2, Copy as CopyIcon, Film, MapPin, Send } from 'lucide-react';
+import { ArrowUpRight, Check, Code2, Copy as CopyIcon, MapPin, Send } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { FilmGrainCanvas } from './components/FilmGrainCanvas';
 
 const themes = [
   { id: 'kurosawa', label: 'Куросава' },
@@ -28,7 +27,6 @@ type Copy = {
   role: string;
   skip: string;
   home: string;
-  grainTitle: string;
   themeLabel: string;
   languageLabel: string;
   themeNames: Record<ThemeId, string>;
@@ -73,7 +71,6 @@ const copy: Record<Locale, Copy> = {
     role: 'backend & offensive security',
     skip: 'К содержанию',
     home: 'tessych, в начало страницы',
-    grainTitle: 'Вкл/выкл плёночное зерно',
     themeLabel: 'Варианты оформления',
     languageLabel: 'Язык',
     themeNames: { kurosawa: 'Kurosawa', kumo: 'Kumo' },
@@ -219,7 +216,6 @@ const copy: Record<Locale, Copy> = {
     role: 'backend & offensive security',
     skip: 'Skip to content',
     home: 'tessych, back to top',
-    grainTitle: 'Toggle film grain overlay',
     themeLabel: 'Visual themes',
     languageLabel: 'Language',
     themeNames: { kurosawa: 'Kurosawa', kumo: 'Kumo' },
@@ -365,7 +361,6 @@ const copy: Record<Locale, Copy> = {
     role: 'バックエンド・セキュリティ',
     skip: '本文へ移動',
     home: 'tessych、ページの先頭へ',
-    grainTitle: 'フィルムグレイン効果の切替',
     themeLabel: 'テーマ',
     languageLabel: '言語',
     themeNames: { kurosawa: '黒澤', kumo: '雲' },
@@ -537,28 +532,6 @@ function App() {
   });
 
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
-  const [isGrainEnabled, setIsGrainEnabled] = useState(() => {
-    try {
-      const saved = localStorage.getItem('tessych-grain');
-      if (saved !== null) return saved === 'true';
-    } catch {
-      // ignore
-    }
-    return true;
-  });
-
-  const handleToggleGrain = () => {
-    setIsGrainEnabled((prev) => {
-      const next = !prev;
-      try {
-        localStorage.setItem('tessych-grain', String(next));
-      } catch {
-        // ignore
-      }
-      return next;
-    });
-  };
-
   const [novosibirskTime, setNovosibirskTime] = useState('');
   const [isCopied, setIsCopied] = useState(false);
   const shouldReduceMotion = useReducedMotion();
@@ -656,7 +629,6 @@ function App() {
 
   return (
     <div className="app-shell" data-theme={theme}>
-      <FilmGrainCanvas enabled={isGrainEnabled} />
       <a className="skip-link" href="#content">
         {text.skip}
       </a>
@@ -671,18 +643,6 @@ function App() {
           <a href="#contact">{text.nav[3]}</a>
         </nav>
         <div className="header-controls">
-          <button
-            type="button"
-            className="grain-toggle-btn"
-            onClick={handleToggleGrain}
-            aria-pressed={isGrainEnabled}
-            title={text.grainTitle}
-            aria-label={text.grainTitle}
-          >
-            <Film aria-hidden="true" size={13} />
-            <span className="grain-label">Grain</span>
-            <span className="grain-indicator-dot" aria-hidden="true" />
-          </button>
           <nav className="theme-switcher" aria-label={text.themeLabel}>
             {themes.map((item) => (
               <button
