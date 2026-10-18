@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://me.tessych.cfd/sitemap.xml
