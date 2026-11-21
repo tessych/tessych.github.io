@@ -1,4 +1,5 @@
-import { THEMES, LOCALES, type ThemeId, type Locale, type Copy } from '../types';
+import { Moon, Sun } from 'lucide-react';
+import { LOCALES, type ThemeId, type Locale, type Copy } from '../types';
 
 interface HeaderProps {
   theme: ThemeId;
@@ -15,6 +16,8 @@ export function Header({
   onThemeChange,
   onLocaleChange,
 }: HeaderProps) {
+  const isLight = theme === 'kumo';
+
   return (
     <header className="site-header">
       <a className="wordmark" href="#top" aria-label={copy.home}>
@@ -29,37 +32,32 @@ export function Header({
       </nav>
 
       <div className="header-controls">
-        <nav className="theme-switcher" aria-label={copy.themeLabel}>
-          {THEMES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="theme-option"
-              aria-pressed={theme === item.id}
-              onClick={() => onThemeChange(item.id)}
-              title={item.label}
-            >
-              <span aria-hidden="true" className={`theme-swatch ${item.id}`} />
-              <span className="theme-name">{copy.themeNames[item.id]}</span>
-            </button>
-          ))}
-        </nav>
+        <button
+          type="button"
+          className="theme-toggle"
+          aria-label={copy.lightTheme}
+          aria-pressed={isLight}
+          title={copy.lightTheme}
+          onClick={() => onThemeChange(isLight ? 'kurosawa' : 'kumo')}
+        >
+          {isLight ? <Moon aria-hidden="true" size={19} /> : <Sun aria-hidden="true" size={19} />}
+        </button>
 
-        <nav className="language-switcher" aria-label={copy.languageLabel}>
+        <label className="visually-hidden" htmlFor="site-language">{copy.languageLabel}</label>
+        <select
+          className="language-select"
+          id="site-language"
+          name="language"
+          value={locale}
+          onChange={(event) => {
+            const language = LOCALES.find(({ id }) => id === event.currentTarget.value);
+            if (language) onLocaleChange(language.id);
+          }}
+        >
           {LOCALES.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className="language-option"
-              aria-label={item.name}
-              aria-pressed={locale === item.id}
-              lang={item.id}
-              onClick={() => onLocaleChange(item.id)}
-            >
-              {item.short}
-            </button>
+            <option key={item.id} value={item.id} lang={item.id}>{item.name}</option>
           ))}
-        </nav>
+        </select>
       </div>
     </header>
   );

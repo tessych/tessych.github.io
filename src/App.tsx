@@ -69,10 +69,10 @@ export default function App() {
       />
 
       <main id="content">
-        <Hero copy={currentCopy} />
+        <Hero copy={currentCopy} theme={theme} />
+        <ApproachSection copy={currentCopy} />
         <AboutSection copy={currentCopy} />
         <AreasSection copy={currentCopy} />
-        <ApproachSection copy={currentCopy} />
         <StackSection copy={currentCopy} />
       </main>
 

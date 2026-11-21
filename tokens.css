@@ -1,6 +1,7 @@
 :root {
   --canvas: #0d1117;
   --font-display: "Noto Sans JP", "Inter", sans-serif;
+  --font-wordmark: "Fraunces", Georgia, serif;
   --font-body: "Inter", "Noto Sans JP", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --space-1: 0.25rem;
@@ -30,7 +31,7 @@
   --accent: #f5f2e9;
   --accent-ink: #0a0a0c;
   --portrait-bg: #141418;
-  --portrait-stamp: #e53e3e;
+  --hero-accent: #ff6b70;
   --focus: #f5f2e9;
   --status-dot: #e53e3e;
   --img-outline: oklch(1 0 0 / 0.1);
@@ -49,7 +50,7 @@
   --accent: #f5f2e9;
   --accent-ink: #0a0a0c;
   --portrait-bg: #141418;
-  --portrait-stamp: #e53e3e;
+  --hero-accent: #ff6b70;
   --focus: #f5f2e9;
   --status-dot: #e53e3e;
   --img-outline: oklch(1 0 0 / 0.1);
@@ -66,7 +67,7 @@
   --accent: #375b82;
   --accent-ink: #fcfbf7;
   --portrait-bg: #f3f1e8;
-  --portrait-stamp: #8f887b;
+  --hero-accent: var(--accent);
   --focus: #1d4b73;
   --status-dot: #1b8a5a;
   --img-outline: oklch(0 0 0 / 0.1);

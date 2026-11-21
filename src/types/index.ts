@@ -1,16 +1,10 @@
-export const THEMES = [
-  { id: 'kurosawa', label: 'Куросава' },
-  { id: 'kumo', label: 'Облако' },
-] as const;
-
 export const LOCALES = [
-  { id: 'ru', short: 'RU', name: 'Русский' },
-  { id: 'en', short: 'EN', name: 'English' },
-  { id: 'ja', short: '日', name: '日本語' },
+  { id: 'ru', name: 'Русский' },
+  { id: 'en', name: 'English' },
+  { id: 'ja', name: '日本語' },
 ] as const;
 
-export type ThemeId = (typeof THEMES)[number]['id'];
-export type ThemeOption = (typeof THEMES)[number];
+export type ThemeId = 'kurosawa' | 'kumo';
 
 export type Locale = (typeof LOCALES)[number]['id'];
 export type LocaleOption = (typeof LOCALES)[number];
@@ -53,13 +47,26 @@ export type Copy = {
   role: string;
   skip: string;
   home: string;
-  themeLabel: string;
+  lightTheme: string;
   languageLabel: string;
-  themeNames: Record<ThemeId, string>;
   sectionsLabel: string;
   nav: [string, string, string, string];
   location: string;
-  heroTitle: [string, string];
+  approachAction: string;
+  contactAction: string;
+  portraitAlt: string;
+  player: {
+    label: string;
+    play: string;
+    pause: string;
+    previous: string;
+    next: string;
+    queue: string;
+    seek: string;
+    volume: string;
+    unavailable: string;
+    error: string;
+  };
   roleLine: string;
   introCopy: string;
   githubLabel: string;
