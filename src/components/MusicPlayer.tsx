@@ -139,7 +139,7 @@ export function MusicPlayer({ labels }: MusicPlayerProps) {
   }
 
   return (
-    <section className="music-player" aria-label={labels.label}>
+    <section className="music-player" aria-label={labels.label} data-playing={playing}>
       <audio
         ref={audio}
         preload="none"
@@ -173,7 +173,8 @@ export function MusicPlayer({ labels }: MusicPlayerProps) {
             disabled={!track.source}
             onClick={togglePlayback}
           >
-            {playing ? <Pause aria-hidden="true" size={18} /> : <Play aria-hidden="true" size={18} />}
+            <Play className="music-play-icon" aria-hidden="true" size={18} />
+            <Pause className="music-pause-icon" aria-hidden="true" size={18} />
           </button>
           <button
             type="button"
@@ -185,7 +186,9 @@ export function MusicPlayer({ labels }: MusicPlayerProps) {
             <SkipForward aria-hidden="true" size={17} />
           </button>
         </div>
-        <span className="music-track" aria-live="polite" lang="en">{track.title}</span>
+        <span className="music-track" aria-live="polite" lang="en">
+          <span key={track.id}>{track.title}</span>
+        </span>
         <button
           type="button"
           className="music-queue-toggle"

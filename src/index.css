@@ -200,8 +200,12 @@ button { cursor: pointer; }
 .music-transport button:active:not(:disabled) { background: var(--paper-raised); border-color: var(--hero-accent); }
 .music-player .music-skip:disabled { color: var(--ink-muted); opacity: 0.5; cursor: default; }
 .music-player .music-play { display: grid; place-items: center; width: 2.75rem; color: var(--hero-accent); border-color: var(--line); }
+.music-play > svg { grid-area: 1 / 1; }
+.music-pause-icon, .music-player[data-playing="true"] .music-play-icon { opacity: 0; }
+.music-player[data-playing="true"] .music-pause-icon { opacity: 1; }
 .music-play:disabled { cursor: default; color: var(--ink-muted); }
 .music-track { font-size: 0.85rem; overflow-wrap: anywhere; }
+.music-track > span { display: inline-block; }
 .music-queue-toggle { display: inline-flex; align-items: center; gap: var(--space-2); padding: 0 var(--space-2); font-size: 0.8rem; white-space: nowrap; }
 @media (max-width: 31rem) {
   .music-player-bar { grid-template-columns: 1fr auto; column-gap: var(--space-3); row-gap: var(--space-1); }
@@ -370,6 +374,51 @@ button { cursor: pointer; }
 @media (max-width: 31rem) {
   .about-section, .areas-section, .focus-section, .stack-section, .contact-section { padding: var(--space-7) 0; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes content-appear {
+    from { opacity: var(--appear-opacity, 0); translate: 0 var(--appear-distance, 6px); }
+    to { opacity: 1; translate: 0 0; }
+  }
+
+  .hero-copy > :is(h1, .hero-role, .hero-intro, .hero-actions, .music-player) {
+    --appear-opacity: 0.45;
+    --appear-distance: 10px;
+    animation: content-appear 420ms var(--ease-out) both;
+  }
+  .hero-copy > :is(.hero-role, .hero-intro) { animation-delay: 55ms; }
+  .hero-copy > .hero-actions { animation-delay: 100ms; }
+  .hero-copy > .music-player { animation-delay: 150ms; }
+  .hero-copy:focus-within > :is(h1, .hero-role, .hero-intro, .hero-actions, .music-player) { animation: none; }
+
+  .music-track > span, .music-queue:not([hidden]) { --appear-opacity: 0; --appear-distance: 6px; }
+  .music-track > span { animation: content-appear var(--dur-fast) var(--ease-out) both; }
+  .music-queue:not([hidden]) { animation: content-appear var(--dur-base) var(--ease-out) both; }
+  .music-play > svg { transition: opacity var(--dur-fast) var(--ease-out), scale var(--dur-fast) var(--ease-out); }
+  .music-pause-icon, .music-player[data-playing="true"] .music-play-icon { scale: 0.8; }
+  .music-player[data-playing="true"] .music-pause-icon { scale: 1; }
+
+  @media (hover: hover) and (pointer: fine) {
+    @supports (appearance: base-select) and selector(::picker(select)) {
+      .language-select::picker(select) {
+        opacity: 0;
+        translate: 0 -4px;
+        transition: opacity var(--dur-fast) ease-in, translate var(--dur-fast) ease-in, display var(--dur-fast), overlay var(--dur-fast);
+        transition-behavior: allow-discrete;
+      }
+      .language-select:open::picker(select) {
+        opacity: 1;
+        translate: 0 0;
+        transition-duration: 190ms;
+        transition-timing-function: var(--ease-out);
+      }
+      @starting-style {
+        .language-select:open::picker(select) { opacity: 0; translate: 0 -4px; }
+      }
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
